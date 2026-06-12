@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrosshairY — Free Crosshair Overlay for Windows</title>
+<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 17 templates, full color control, profiles, proof mode. Free, open source, zero bloat.">
+<meta name="theme-color" content="#080808">
+<link rel="canonical" href="https://crosshairy.xyz/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crosshairy.xyz/">
+<meta property="og:title" content="CrosshairY — Always on top. Zero bloat.">
+<meta property="og:description" content="Free crosshair overlay for Windows. 17 templates, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
+<meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Favicon: white crosshair on black -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080808'/%3E%3Cg stroke='%23f5f5f5' stroke-width='3'%3E%3Cline x1='16' y1='3' x2='16' y2='11'/%3E%3Cline x1='16' y1='21' x2='16' y2='29'/%3E%3Cline x1='3' y1='16' x2='11' y2='16'/%3E%3Cline x1='21' y1='16' x2='29' y2='16'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "CrosshairY",
+  "operatingSystem": "Windows 10, Windows 11",
+  "applicationCategory": "UtilitiesApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://github.com/dcbzpass/CrosshairY/blob/main/LICENSE",
+  "url": "https://crosshairy.xyz/",
+  "downloadUrl": "https://github.com/dcbzpass/CrosshairY/releases/latest",
+  "softwareVersion": "1.0.4"
+}
+</script>
+<style>
+/* ============ TOKENS — taken 1:1 from CrosshairY App.xaml ============ */
+:root{
+  --bg-deep:#080808;
+  --bg-card:#0f0f0f;
+  --bg-panel:#0a0a0a;
+  --bg-btn:#141414;
+  --bg-hover:#1e1e1e;
+  --border:#1e1e1e;
+  --white:#f5f5f5;
+  --fg-mid:#8a8a8a;
+  --muted:#5a5a5a;
+  --muted2:#2a2a2a;
+  --red:#aa2020;
+  --font-display:'Bebas Neue', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg-deep);
+  color:var(--white);
+  font-family:var(--font-mono);
+  font-size:13px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--white);color:var(--bg-deep);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg-deep);}
+::-webkit-scrollbar-thumb{background:var(--muted2);}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--font-mono);cursor:pointer;}
+:focus-visible{outline:1px solid var(--white);outline-offset:3px;}
+img,canvas{display:block;max-width:100%;}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+.eyebrow{
+  font-size:11px;letter-spacing:.22em;color:var(--muted);
+  text-transform:uppercase;display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--muted2);}
+h2.sec-title{
+  font-family:var(--font-display);
+  font-size:clamp(44px,6vw,76px);
+  line-height:.95;letter-spacing:.01em;font-weight:400;
+  margin:14px 0 0;
+}
+.sec-head{margin-bottom:56px;}
+.sec-head p{max-width:520px;color:var(--fg-mid);margin-top:18px;}
+section{padding:120px 0;position:relative;}
+
+/* crosshair divider between sections */
+.div-x{position:relative;height:1px;background:var(--border);max-width:1160px;margin:0 auto;}
+.div-x::after{
+  content:"+";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:var(--bg-deep);color:var(--muted2);padding:0 14px;
+  font-family:var(--font-mono);font-size:14px;
+}
+
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,8,8,.72);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1160px;margin:0 auto;padding:0 32px;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:21px;letter-spacing:.06em;line-height:1;}
+.logo svg{width:16px;height:16px;}
+.logo .y{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--white);width:20px;height:20px;margin-left:2px;
+  transform:translateY(-1px);transition:background .18s,color .18s;
+}
+.logo:hover .y{background:var(--white);color:var(--bg-deep);}
+.nav-links{display:flex;gap:28px;align-items:center;font-size:11px;letter-spacing:.16em;}
+.nav-links a{color:var(--muted);transition:color .18s;text-transform:uppercase;}
+.nav-links a:hover{color:var(--white);}
+.nav-links a.dl{
+  border:1px solid var(--muted2);padding:8px 16px;color:var(--white);
+  transition:border-color .18s,background .18s,color .18s;
+}
+.nav-links a.dl:hover{background:var(--white);color:var(--bg-deep);border-color:var(--white);}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  position:relative;padding:120px 24px 80px;overflow:hidden;
+}
+#hero-3d{position:absolute;inset:0;z-index:0;}
+.hero-content{position:relative;z-index:2;pointer-events:none;}
+.hero-content a,.hero-content .cta-row{pointer-events:auto;}
+.hero-tag{
+  font-size:11px;letter-spacing:.28em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:26px;
+  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+}
+.hero-tag span::after{content:"/";margin-left:18px;color:var(--muted2);}
+.hero-tag span:last-child::after{content:"";}
+h1{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(72px,13vw,184px);
+  line-height:.88;letter-spacing:.005em;
+}
+h1 .ghost{
+  display:block;color:transparent;
+  -webkit-text-stroke:1.5px var(--muted);
+}
+.hero-sub{
+  max-width:560px;margin:30px auto 0;color:var(--fg-mid);font-size:13px;
+}
+.hero-sub b{color:var(--white);font-weight:500;}
+.cta-row{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:15px 28px;border:1px solid;
+  transition:all .18s ease-out;
+}
+.btn-solid{background:var(--white);color:var(--bg-deep);border-color:var(--white);}
+.btn-solid:hover{background:transparent;color:var(--white);}
+.btn-ghost{background:transparent;color:var(--fg-mid);border-color:var(--muted2);}
+.btn-ghost:hover{color:var(--white);border-color:var(--white);}
+.hero-stats{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+  display:flex;gap:0;z-index:2;font-size:10px;letter-spacing:.18em;
+  color:var(--muted);text-transform:uppercase;flex-wrap:wrap;justify-content:center;
+}
+.hero-stats span{padding:0 20px;border-right:1px solid var(--border);}
+.hero-stats span:last-child{border-right:none;}
+.hero-stats b{color:var(--white);font-weight:500;margin-right:6px;}
+
+/* HUD corner brackets + readouts */
+.hud{position:absolute;z-index:3;pointer-events:none;font-size:10px;letter-spacing:.14em;color:var(--muted2);text-transform:uppercase;}
+.hud-corner{width:26px;height:26px;border:0 solid var(--muted2);}
+.hud.tl{top:78px;left:28px;border-top:1px solid var(--muted2);border-left:1px solid var(--muted2);padding:10px 0 0 0;width:26px;height:26px;}
+.hud.tr{top:78px;right:28px;border-top:1px solid var(--muted2);border-right:1px solid var(--muted2);width:26px;height:26px;}
+.hud.bl{bottom:88px;left:28px;border-bottom:1px solid var(--muted2);border-left:1px solid var(--muted2);width:26px;height:26px;}
+.hud.br{bottom:88px;right:28px;border-bottom:1px solid var(--muted2);border-right:1px solid var(--muted2);width:26px;height:26px;}
+.hud-label{position:absolute;z-index:3;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;pointer-events:none;}
+.hud-label.tl{top:84px;left:66px;}
+.hud-label.tr{top:84px;right:66px;text-align:right;}
+.hud-label.br{bottom:94px;right:66px;text-align:right;font-variant-numeric:tabular-nums;}
+.hud-label.bl{bottom:94px;left:66px;}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start;}
+.about-grid h2{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(40px,5.4vw,68px);line-height:.98;
+}
+.about-grid h2 em{font-style:normal;color:var(--muted);}
+.about-copy p{color:var(--fg-mid);margin-bottom:20px;}
+.about-copy p b{color:var(--white);font-weight:500;}
+.about-list{list-style:none;margin-top:28px;border-top:1px solid var(--border);}
+.about-list li{
+  display:flex;justify-content:space-between;gap:20px;
+  padding:13px 0;border-bottom:1px solid var(--border);
+  font-size:12px;
+}
+.about-list li span:first-child{color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-size:11px;}
+
+/* ============ FEATURES ============ */
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);background:var(--border);gap:1px;
+}
+.feat-cell{
+  background:var(--bg-card);padding:34px 30px;min-height:220px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:background .25s;position:relative;
+  transform-style:preserve-3d;will-change:transform;
+}
+.feat-cell:hover{background:#121212;}
+.feat-cell .glyph{height:30px;display:flex;align-items:center;}
+.feat-cell .glyph svg{width:26px;height:26px;stroke:var(--white);fill:none;stroke-width:1.5;}
+.feat-cell h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:24px;letter-spacing:.03em;line-height:1;
+}
+.feat-cell p{color:var(--muted);font-size:12px;line-height:1.65;}
+.feat-cell .tag{
+  position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:.18em;
+  color:var(--muted2);text-transform:uppercase;
+}
+
+/* ============ LAB (signature) ============ */
+#lab{background:var(--bg-panel);}
+.lab-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;border:1px solid var(--border);background:var(--border);}
+.lab-preview{
+  background:
+    radial-gradient(ellipse at center, rgba(20,20,20,0) 0%, rgba(8,8,8,.92) 100%),
+    repeating-linear-gradient(0deg, transparent 0 39px, #141414 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, #141414 39px 40px),
+    #0c0c0c;
+  position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;
+}
+#lab-canvas{width:340px;height:340px;}
+.lab-hudline{position:absolute;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
+.lab-hudline.a{top:18px;left:20px;}
+.lab-hudline.b{top:18px;right:20px;color:var(--muted2);}
+.lab-hudline.c{bottom:18px;left:20px;color:var(--muted2);}
+.lab-hudline.d{bottom:18px;right:20px;font-variant-numeric:tabular-nums;}
+.lab-controls{background:var(--bg-card);padding:34px;display:flex;flex-direction:column;gap:26px;}
+.ctl-label{
+  font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;
+  display:flex;justify-content:space-between;margin-bottom:10px;
+}
+.ctl-label output{color:var(--white);font-variant-numeric:tabular-nums;}
+.tpl-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+.tpl-btn{
+  aspect-ratio:1;background:var(--bg-btn);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;padding:0;
+  transition:border-color .15s,background .15s;
+}
+.tpl-btn:hover{background:var(--bg-hover);}
+.tpl-btn.active{border-color:var(--white);}
+.tpl-btn canvas{width:100%;height:100%;}
+.tpl-name{font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:8px;min-height:14px;}
+.tpl-name b{color:var(--white);font-weight:500;}
+.swatches{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.swatch{width:26px;height:26px;border:1px solid var(--muted2);padding:0;transition:transform .12s;}
+.swatch:hover{transform:translateY(-2px);}
+.swatch.active{outline:1px solid var(--white);outline-offset:2px;}
+.hex-input{
+  background:var(--bg-btn);border:1px solid var(--border);color:var(--white);
+  font-family:var(--font-mono);font-size:11px;height:26px;width:92px;
+  padding:0 8px;letter-spacing:.08em;
+}
+.hex-input:focus{outline:none;border-color:var(--muted);}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:16px;
+  background:transparent;cursor:pointer;
+}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--border);}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:9px;height:9px;border-radius:50%;
+  background:var(--white);margin-top:-4px;
+}
+input[type=range]::-moz-range-track{height:1px;background:var(--border);}
+input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;background:var(--white);border:none;}
+.lab-actions{display:flex;gap:10px;margin-top:4px;}
+.lab-btn{
+  flex:1;background:var(--bg-btn);border:1px solid var(--border);color:var(--fg-mid);
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;height:34px;
+  transition:all .15s;
+}
+.lab-btn:hover{background:var(--bg-hover);color:var(--white);}
+.lab-note{font-size:10px;color:var(--muted2);letter-spacing:.06em;line-height:1.6;}
+.lab-note a{color:var(--muted);border-bottom:1px solid var(--muted2);}
+.lab-note a:hover{color:var(--white);}
+
+/* ============ PROOF MODE ============ */
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--border);background:var(--border);}
+.proof-pane{
+  position:relative;min-height:340px;
+  background:
+    radial-gradient(ellipse at center, rgba(20,20,20,0) 0%, rgba(8,8,8,.92) 100%),
+    repeating-linear-gradient(0deg, transparent 0 39px, #131313 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, #131313 39px 40px),
+    #0b0b0b;
+  display:flex;align-items:center;justify-content:center;
+}
+.proof-pane canvas{width:160px;height:160px;transition:opacity .3s ease;}
+.proof-pane .pane-tag{
+  position:absolute;top:16px;left:18px;font-size:10px;letter-spacing:.2em;
+  color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:8px;
+}
+.rec-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:rec 1.4s infinite;}
+@keyframes rec{0%,100%{opacity:1}50%{opacity:.25}}
+.hidden-tag{
+  position:absolute;font-size:10px;letter-spacing:.24em;color:var(--muted);
+  text-transform:uppercase;border:1px solid var(--muted2);padding:8px 16px;
+  opacity:0;transition:opacity .3s;
+}
+.proof-pane.capture.on canvas{opacity:0;}
+.proof-pane.capture.on .hidden-tag{opacity:1;}
+.proof-toggle-row{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin-top:34px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+.proof-toggle-row .state{color:var(--white);min-width:34px;font-variant-numeric:tabular-nums;}
+/* exact replica of the app's ToggleSwitch (41x20, 14px thumb, .14s ease-out cubic) */
+.switch{position:relative;width:41px;height:20px;display:inline-block;}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2;}
+.switch .track{
+  position:absolute;inset:0;background:var(--bg-btn);border:1px solid var(--muted2);
+  transition:background .14s cubic-bezier(.215,.61,.355,1),border-color .14s cubic-bezier(.215,.61,.355,1);
+}
+.switch .thumb{
+  position:absolute;top:3px;left:3px;width:14px;height:14px;background:var(--muted);
+  transition:transform .14s cubic-bezier(.215,.61,.355,1),background .14s cubic-bezier(.215,.61,.355,1);
+}
+.switch input:checked ~ .track{background:var(--white);border-color:var(--white);}
+.switch input:checked ~ .thumb{transform:translateX(20px);background:var(--bg-deep);}
+.proof-copy{max-width:640px;margin:30px auto 0;text-align:center;color:var(--fg-mid);font-size:12px;}
+.proof-copy code{color:var(--white);background:var(--bg-btn);border:1px solid var(--border);padding:2px 7px;font-size:11px;}
+
+/* ============ DOWNLOAD ============ */
+#download{background:var(--bg-panel);text-align:center;}
+#download .big{
+  font-family:var(--font-display);font-weight:400;
+  font-size:clamp(56px,9vw,120px);line-height:.92;
+}
+#download .big em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--muted);}
+.dl-sub{color:var(--fg-mid);margin:22px auto 0;max-width:480px;}
+.dl-meta{
+  display:flex;justify-content:center;gap:0;margin-top:18px;flex-wrap:wrap;
+  font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;
+}
+.dl-meta span{padding:0 16px;border-right:1px solid var(--border);}
+.dl-meta span:last-child{border-right:none;}
+.steps{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  border:1px solid var(--border);background:var(--border);
+  margin-top:70px;text-align:left;
+}
+.step{background:var(--bg-card);padding:30px;}
+.step .num{
+  font-family:var(--font-display);font-size:30px;color:var(--muted2);line-height:1;
+}
+.step h4{font-family:var(--font-display);font-weight:400;font-size:20px;margin:14px 0 8px;letter-spacing:.04em;}
+.step p{color:var(--muted);font-size:12px;}
+.step p code{color:var(--fg-mid);font-size:11px;}
+.answers{max-width:740px;margin:80px auto 0;text-align:left;border-top:1px solid var(--border);}
+.answers details{border-bottom:1px solid var(--border);}
+.answers summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;
+  padding:20px 4px;font-size:12px;letter-spacing:.08em;color:var(--white);text-transform:uppercase;
+}
+.answers summary::-webkit-details-marker{display:none;}
+.answers summary::after{content:"+";color:var(--muted);font-size:16px;transition:transform .2s;}
+.answers details[open] summary::after{transform:rotate(45deg);}
+.answers details p{padding:0 4px 22px;color:var(--fg-mid);font-size:12px;max-width:620px;}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;position:relative;}
+.foot-mark{
+  font-family:var(--font-display);font-size:clamp(80px,16.5vw,236px);
+  line-height:.8;color:#0e0e0e;text-align:center;user-select:none;
+  letter-spacing:.02em;
+}
+.foot-row{
+  display:flex;justify-content:space-between;align-items:center;gap:24px;
+  margin-top:50px;flex-wrap:wrap;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.foot-row .links{display:flex;gap:26px;flex-wrap:wrap;}
+.foot-row a{color:var(--muted);transition:color .18s;}
+.foot-row a:hover{color:var(--white);}
+
+/* ============ REVEAL / MOTION ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  .reveal{opacity:1;transform:none;}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+  .feat-grid{grid-template-columns:repeat(2,1fr);}
+  .lab-grid,.about-grid,.proof-grid{grid-template-columns:1fr;gap:1px;}
+  .about-grid{gap:50px;}
+  .steps{grid-template-columns:1fr;}
+  .lab-preview{min-height:420px;}
+}
+@media (max-width:640px){
+  .wrap{padding:0 20px;}
+  section{padding:84px 0;}
+  .nav-links a:not(.dl){display:none;}
+  .feat-grid{grid-template-columns:1fr;}
+  .feat-cell{min-height:0;}
+  .hud,.hud-label{display:none;}
+  .hero-stats{position:static;transform:none;margin-top:54px;}
+  .hero-stats span{padding:0 10px;}
+  .tpl-grid{grid-template-columns:repeat(5,1fr);}
+  #lab-canvas{width:260px;height:260px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#" aria-label="CrosshairY home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#f5f5f5" stroke-width="3" fill="none"><line x1="16" y1="2" x2="16" y2="11"/><line x1="16" y1="21" x2="16" y2="30"/><line x1="2" y1="16" x2="11" y2="16"/><line x1="21" y1="16" x2="30" y2="16"/></g></svg>
+      CROSSHAIR<span class="y">Y</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#lab">Lab</a>
+      <a href="#proof">Proof&nbsp;Mode</a>
+      <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub&nbsp;&#8599;</a>
+      <a class="dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div id="hero-3d" aria-hidden="true"></div>
+
+  <div class="hud tl" aria-hidden="true"></div>
+  <div class="hud tr" aria-hidden="true"></div>
+  <div class="hud bl" aria-hidden="true"></div>
+  <div class="hud br" aria-hidden="true"></div>
+  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.4</div>
+  <div class="hud-label tr">MIT&nbsp;LICENSE</div>
+  <div class="hud-label bl">WIN&nbsp;10&middot;11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
+  <div class="hud-label br" id="coords">X:0000&nbsp;&nbsp;Y:0000</div>
+
+  <div class="hero-content">
+    <div class="hero-tag"><span>Free</span><span>Open&nbsp;Source</span><span>Windows</span></div>
+    <h1>ALWAYS ON TOP.<span class="ghost">ZERO BLOAT.</span></h1>
+    <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. <b>No injection. No drivers. Just a window.</b></p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;&mdash;&nbsp;Free&nbsp;&#8595;</a>
+      <a class="btn btn-ghost" href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">View&nbsp;Source&nbsp;&#8599;</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <span><b>17</b>Templates</span>
+    <span><b>8</b>Swatches&nbsp;+&nbsp;Hex</span>
+    <span><b>0</b>Taskbar&nbsp;Icons</span>
+    <span><b>100%</b>Free</span>
+  </div>
+</header>
+
+<div class="div-x"></div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <h2>A CROSSHAIR THAT BEHAVES LIKE IT&rsquo;S <em>PART OF THE OS.</em></h2>
+    </div>
+    <div class="about-copy reveal">
+      <p>Most overlay tools want an installer, an account, and a corner of your taskbar. CrosshairY wants none of it. It&rsquo;s a <b>single transparent window</b> that sits above everything, ignores your clicks, and disappears from view the moment you ask it to.</p>
+      <p>Built with C# WPF on .NET&nbsp;8 and released under MIT &mdash; the entire source is public. Read it, fork it, build it yourself with one <code>build.bat</code>.</p>
+      <ul class="about-list">
+        <li><span>Engine</span><span>C# / WPF / .NET 8</span></li>
+        <li><span>Install</span><span>None &mdash; single .exe</span></li>
+        <li><span>Game hooks</span><span>Zero. It never touches a process</span></li>
+        <li><span>License</span><span>MIT &mdash; do whatever you want</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="div-x"></div>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">// Features</div>
+      <h2 class="sec-title">EVERYTHING YOU NEED.<br>NOTHING YOU DON&rsquo;T.</h2>
+    </div>
+    <div class="feat-grid reveal">
+      <div class="feat-cell" data-tilt>
+        <span class="tag">01</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="2" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="22" y2="12"/></svg></div>
+        <h3>17 Templates</h3>
+        <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, T-Shape and more. Try every one of them in the Lab below.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">02</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></div>
+        <h3>Live Color</h3>
+        <p>8 swatches with instant preview, plus a free hex input for any color your monitor can produce.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">03</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3>Outline &amp; Gap</h3>
+        <p>Outline toggle with 1&ndash;5 thickness and a center-gap slider from 0 to 20 so your aim point stays clean.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">04</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><polyline points="4,16 4,20 20,20 20,16"/><line x1="12" y1="4" x2="12" y2="15"/><polyline points="8,11 12,15 16,11"/></svg></div>
+        <h3>Size &amp; Opacity</h3>
+        <p>Scale from 50% to 200%, fade from 10% to 100%. Big and bold or barely there &mdash; your call.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">05</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></div>
+        <h3>Proof Mode</h3>
+        <p>One keypress hides the overlay from OBS, Discord screenshare and clips. Your screen keeps it; the capture doesn&rsquo;t.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">06</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><rect x="9" y="13" width="6" height="7"/><rect x="9" y="4" width="6" height="4"/></svg></div>
+        <h3>Profiles</h3>
+        <p>Save, load and overwrite configs as plain .json. Drop a friend&rsquo;s file in the folder, hit reload, done.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">07</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 14l4-8 4 6 3-4 5 6"/><line x1="4" y1="19" x2="20" y2="19"/></svg></div>
+        <h3>Auto-Load</h3>
+        <p>Your last config applies itself on launch. Open the .exe and you&rsquo;re already dialed in.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">08</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><line x1="7" y1="12" x2="7" y2="12.01"/><line x1="11" y1="12" x2="11" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/></svg></div>
+        <h3>Hotkeys</h3>
+        <p>Global keys for proof mode and profile cycling. Switch setups mid-match without ever opening the UI.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <span class="tag">09</span>
+        <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M3 12c2.5-4.5 6-7 9-7s6.5 2.5 9 7c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7z"/><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
+        <h3>Invisible Footprint</h3>
+        <p>No taskbar icon, borderless, fully click-through. It runs silently and never gets in the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-x"></div>
+
+<!-- ============ LAB ============ -->
+<section id="lab">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">// The Lab</div>
+      <h2 class="sec-title">BUILD YOUR CROSSHAIR.<br>RIGHT HERE.</h2>
+      <p>A working replica of the app&rsquo;s customizer &mdash; same templates, same controls, same look. What you build here is what you get in-game.</p>
+    </div>
+    <div class="lab-grid reveal">
+      <div class="lab-preview">
+        <span class="lab-hudline a">PREVIEW</span>
+        <span class="lab-hudline b">RANGE&nbsp;/&nbsp;01</span>
+        <span class="lab-hudline c">CLICK-THROUGH:&nbsp;ON</span>
+        <span class="lab-hudline d" id="lab-readout"></span>
+        <canvas id="lab-canvas" width="680" height="680" aria-label="Crosshair preview"></canvas>
+      </div>
+      <div class="lab-controls">
+        <div>
+          <div class="ctl-label"><span>Template</span><output id="tpl-out">THICK CROSS</output></div>
+          <div class="tpl-grid" id="tpl-grid" role="listbox" aria-label="Crosshair templates"></div>
+        </div>
+        <div>
+          <div class="ctl-label"><span>Color</span><output id="col-out">#F5F5F5</output></div>
+          <div class="swatches" id="swatches">
+            <input class="hex-input" id="hex-input" maxlength="7" value="#F5F5F5" aria-label="Hex color" spellcheck="false">
+          </div>
+        </div>
+        <div>
+          <div class="ctl-label"><span>Size</span><output id="size-out">100%</output></div>
+          <input type="range" id="r-size" min="50" max="200" value="100" aria-label="Size">
+        </div>
+        <div>
+          <div class="ctl-label"><span>Center Gap</span><output id="gap-out">6</output></div>
+          <input type="range" id="r-gap" min="0" max="20" value="6" aria-label="Center gap">
+        </div>
+        <div>
+          <div class="ctl-label"><span>Outline</span><output id="out-out">1</output></div>
+          <input type="range" id="r-outline" min="0" max="5" value="1" aria-label="Outline thickness">
+        </div>
+        <div>
+          <div class="ctl-label"><span>Opacity</span><output id="op-out">100%</output></div>
+          <input type="range" id="r-opacity" min="10" max="100" value="100" aria-label="Opacity">
+        </div>
+        <div class="lab-actions">
+          <button class="lab-btn" id="btn-random">&#10227;&nbsp;Randomize</button>
+          <button class="lab-btn" id="btn-reset">Reset</button>
+        </div>
+        <p class="lab-note">Same controls ship in the app, where profiles save as plain .json under <code>%APPDATA%\CrosshairY</code>. <a href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Get the real thing &#8599;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-x"></div>
+
+<!-- ============ PROOF MODE ============ -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">// Proof Mode</div>
+      <h2 class="sec-title">ON YOUR SCREEN.<br>OFF THE RECORDING.</h2>
+    </div>
+    <div class="proof-grid reveal">
+      <div class="proof-pane">
+        <span class="pane-tag">Your screen</span>
+        <canvas class="proof-ch" width="320" height="320"></canvas>
+      </div>
+      <div class="proof-pane capture" id="capture-pane">
+        <span class="pane-tag"><span class="rec-dot"></span>OBS&nbsp;/&nbsp;Screenshare</span>
+        <canvas class="proof-ch" width="320" height="320"></canvas>
+        <span class="hidden-tag">Overlay hidden from capture</span>
+      </div>
+    </div>
+    <div class="proof-toggle-row reveal">
+      <span>Proof mode</span>
+      <label class="switch">
+        <input type="checkbox" id="proof-toggle" aria-label="Toggle proof mode demo">
+        <span class="track"></span>
+        <span class="thumb"></span>
+      </label>
+      <span class="state" id="proof-state">OFF</span>
+    </div>
+    <p class="proof-copy reveal">A single keypress flags the overlay window with <code>WDA_EXCLUDEFROMCAPTURE</code>, so capture software simply can&rsquo;t see it. Press again to bring it back. The hotkey is yours to configure.</p>
+  </div>
+</section>
+
+<div class="div-x"></div>
+
+<!-- ============ DOWNLOAD ============ -->
+<section id="download">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="big">READY WHEN<br><em>YOU ARE.</em></div>
+      <p class="dl-sub">One executable. No installer, no account, no nags. Delete the file and it&rsquo;s gone like it was never there.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.4&nbsp;&#8595;</a>
+        <a class="btn btn-ghost" href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join&nbsp;the&nbsp;Discord</a>
+      </div>
+      <div class="dl-meta">
+        <span>Windows&nbsp;10&nbsp;/&nbsp;11&nbsp;&middot;&nbsp;x64</span>
+        <span>.NET&nbsp;8&nbsp;Desktop&nbsp;Runtime</span>
+        <span>MIT&nbsp;Licensed</span>
+      </div>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Grab the .exe</h4>
+        <p>Download <code>CrosshairY.exe</code> from the latest GitHub release. It&rsquo;s a single self-contained file.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Run it</h4>
+        <p>No install wizard. If Windows asks, you may need the free <code>.NET 8 Desktop Runtime</code> from Microsoft.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Lock in</h4>
+        <p>Pick a template, dial your color and gap, save it as a profile. It auto-loads next launch.</p>
+      </div>
+    </div>
+    <div class="answers reveal">
+      <details>
+        <summary>Is this a cheat?</summary>
+        <p>No. CrosshairY draws on your screen the way a sticky note on your monitor would &mdash; it never reads, writes or injects into any game process. No drivers, no hooks into games, just a transparent window.</p>
+      </details>
+      <details>
+        <summary>Why is it free?</summary>
+        <p>Because it&rsquo;s open source under MIT. The full code is on GitHub for anyone to audit, fork or build themselves with one <code>build.bat</code>.</p>
+      </details>
+      <details>
+        <summary>Where do my profiles live?</summary>
+        <p>As plain .json files in <code>%APPDATA%\CrosshairY\Configs</code>. Share a file with a friend, they drop it in their folder, hit reload, and they&rsquo;re running your exact setup.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-mark" aria-hidden="true">CROSSHAIRY</div>
+  <div class="wrap foot-row">
+    <span>&copy; 2026 CrosshairY &middot; MIT License</span>
+    <div class="links">
+      <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub&nbsp;&#8599;</a>
+      <a href="https://github.com/dcbzpass/CrosshairY/releases" target="_blank" rel="noopener">Releases&nbsp;&#8599;</a>
+      <a href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Discord&nbsp;&#8599;</a>
+      <a href="https://www.tiktok.com/@crosshair_y" target="_blank" rel="noopener">TikTok&nbsp;&#8599;</a>
+    </div>
+    <span>crosshairy.xyz</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var OUT_COLOR = 'rgba(0,0,0,0.95)';
+
+/* ==================================================================
+   CROSSHAIR RENDERER — all 17 templates from the app
+   ================================================================== */
+function makeDrawer(ctx){
+  function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);}
+  function stroked(build,lw,outline){
+    if(outline>0){
+      ctx.strokeStyle=OUT_COLOR;ctx.lineWidth=lw+outline*2;
+      ctx.beginPath();build();ctx.stroke();
+    }
+    ctx.strokeStyle=ctx._color;ctx.lineWidth=lw;
+    ctx.beginPath();build();ctx.stroke();
+  }
+  function filled(build,outline){
+    ctx.beginPath();build();
+    ctx.fillStyle=ctx._color;ctx.fill();
+    if(outline>0){ctx.strokeStyle=OUT_COLOR;ctx.lineWidth=outline*2;ctx.stroke();}
+  }
+  return {line:line,stroked:stroked,filled:filled};
+}
+
+var TPLS=[
+ {name:'DOT',draw:function(d,c,s,g,o){d.filled(function(){c.arc(0,0,3.2*s,0,7);},o);}},
+ {name:'RING',draw:function(d,c,s,g,o){d.stroked(function(){c.arc(0,0,10*s,0,7);},2*s,o);}},
+ {name:'SQUARE',draw:function(d,c,s,g,o){var h=9*s;d.stroked(function(){c.rect(-h,-h,h*2,h*2);},2*s,o);}},
+ {name:'THIN CROSS',draw:function(d,c,s,g,o){var L=g+18*s;d.stroked(function(){d.line(0,-g,0,-L);d.line(0,g,0,L);d.line(-g,0,-L,0);d.line(g,0,L,0);},1.6*s,o);}},
+ {name:'THICK CROSS',draw:function(d,c,s,g,o){var L=g+16*s;d.stroked(function(){d.line(0,-g,0,-L);d.line(0,g,0,L);d.line(-g,0,-L,0);d.line(g,0,L,0);},4.2*s,o);}},
+ {name:'CROSS \u00B7',draw:function(d,c,s,g,o){var gg=Math.max(g,4*s),L=gg+13*s;d.stroked(function(){d.line(0,-gg,0,-L);d.line(0,gg,0,L);d.line(-gg,0,-L,0);d.line(gg,0,L,0);},1.6*s,o);d.filled(function(){c.arc(0,0,1.8*s,0,7);},o);}},
+ {name:'T-SHAPE',draw:function(d,c,s,g,o){var L=g+15*s;d.stroked(function(){d.line(-g,0,-L,0);d.line(g,0,L,0);d.line(0,g,0,L);},3.6*s,o);}},
+ {name:'CIRCLE +',draw:function(d,c,s,g,o){d.stroked(function(){c.arc(0,0,12*s,0,7);},1.6*s,o);d.stroked(function(){d.line(0,-3*s,0,-8.5*s);d.line(0,3*s,0,8.5*s);d.line(-3*s,0,-8.5*s,0);d.line(3*s,0,8.5*s,0);},1.6*s,o);}},
+ {name:'SMALL PLUS',draw:function(d,c,s,g,o){var gg=g*0.5,L=gg+6.5*s;d.stroked(function(){d.line(0,-gg,0,-L);d.line(0,gg,0,L);d.line(-gg,0,-L,0);d.line(gg,0,L,0);},2.4*s,o);}},
+ {name:'LARGE PLUS',draw:function(d,c,s,g,o){var L=g+26*s;d.stroked(function(){d.line(0,-g,0,-L);d.line(0,g,0,L);d.line(-g,0,-L,0);d.line(g,0,L,0);},3*s,o);}},
+ {name:'SNIPER',draw:function(d,c,s,g,o){var L=g+34*s;d.stroked(function(){d.line(0,-g,0,-L);d.line(0,g,0,L);d.line(-g,0,-L,0);d.line(g,0,L,0);},1.2*s,o);d.filled(function(){c.arc(0,0,1.5*s,0,7);},o);}},
+ {name:'X CROSS',draw:function(d,c,s,g,o){var a=0.7071,r1=g,r2=g+14*s;d.stroked(function(){d.line(a*r1,a*r1,a*r2,a*r2);d.line(-a*r1,a*r1,-a*r2,a*r2);d.line(a*r1,-a*r1,a*r2,-a*r2);d.line(-a*r1,-a*r1,-a*r2,-a*r2);},2.8*s,o);}},
+ {name:'X \u00B7',draw:function(d,c,s,g,o){var a=0.7071,r1=Math.max(g,4*s),r2=r1+11*s;d.stroked(function(){d.line(a*r1,a*r1,a*r2,a*r2);d.line(-a*r1,a*r1,-a*r2,a*r2);d.line(a*r1,-a*r1,a*r2,-a*r2);d.line(-a*r1,-a*r1,-a*r2,-a*r2);},2*s,o);d.filled(function(){c.arc(0,0,1.8*s,0,7);},o);}},
+ {name:'ARROWS',draw:function(d,c,s,g,o){
+   var dd=g+4*s,len=7.5*s,w=4.5*s,i;
+   for(i=0;i<4;i++){(function(ang){
+     d.filled(function(){
+       var ca=Math.cos(ang),sa=Math.sin(ang);
+       function pt(x,y){return [x*ca-y*sa, x*sa+y*ca];}
+       var t=pt(0,-dd),b1=pt(-w,-(dd+len)),b2=pt(w,-(dd+len));
+       c.moveTo(t[0],t[1]);c.lineTo(b1[0],b1[1]);c.lineTo(b2[0],b2[1]);c.closePath();
+     },o);
+   })(i*Math.PI/2);}
+ }},
+ {name:'CHEVRONS',draw:function(d,c,s,g,o){
+   var dd=g+5*s,sp=5.5*s,i;
+   d.stroked(function(){
+     for(i=0;i<4;i++){
+       var ang=i*Math.PI/2,ca=Math.cos(ang),sa=Math.sin(ang);
+       function pt(x,y){return [x*ca-y*sa, x*sa+y*ca];}
+       var a1=pt(-sp,-(dd+sp)),m=pt(0,-dd),a2=pt(sp,-(dd+sp));
+       c.moveTo(a1[0],a1[1]);c.lineTo(m[0],m[1]);c.lineTo(a2[0],a2[1]);
+     }
+   },2*s,o);
+ }},
+ {name:'TRIANGLE',draw:function(d,c,s,g,o){
+   var r=11*s;
+   d.stroked(function(){
+     var p1=[0,-r],p2=[r*0.866,r*0.5],p3=[-r*0.866,r*0.5];
+     c.moveTo(p1[0],p1[1]);c.lineTo(p2[0],p2[1]);c.lineTo(p3[0],p3[1]);c.closePath();
+   },2*s,o);
+ }},
+ {name:'DIAMOND',draw:function(d,c,s,g,o){
+   var r=11*s;
+   d.stroked(function(){
+     c.moveTo(0,-r);c.lineTo(r,0);c.lineTo(0,r);c.lineTo(-r,0);c.closePath();
+   },2*s,o);
+ }}
+];
+
+function renderCrosshair(canvas,state){
+  var ctx=canvas.getContext('2d');
+  var w=canvas.width,h=canvas.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.save();
+  ctx.translate(w/2,h/2);
+  ctx.lineCap='butt';ctx.lineJoin='miter';
+  var s=(Math.min(w,h)/170)*state.size;
+  var g=state.gap*(Math.min(w,h)/170)*0.9;
+  var o=state.outline*(Math.min(w,h)/170)*0.8;
+  ctx.globalAlpha=state.opacity;
+  ctx._color=state.color;
+  var d=makeDrawer(ctx);
+  TPLS[state.tpl].draw(d,ctx,s,g,o);
+  ctx.restore();
+}
+
+/* ==================================================================
+   LAB
+   ================================================================== */
+var SWATCHES=['#F5F5F5','#FF3B3B','#3BFF7E','#3BD7FF','#FF3BD0','#FFE43B','#FF8C1A','#5468FF'];
+var DEFAULTS={tpl:4,color:'#F5F5F5',size:1,gap:6,outline:1,opacity:1};
+var lab=Object.assign({},DEFAULTS);
+var labCanvas=document.getElementById('lab-canvas');
+
+var els={
+  tplOut:document.getElementById('tpl-out'),
+  colOut:document.getElementById('col-out'),
+  sizeOut:document.getElementById('size-out'),
+  gapOut:document.getElementById('gap-out'),
+  outOut:document.getElementById('out-out'),
+  opOut:document.getElementById('op-out'),
+  readout:document.getElementById('lab-readout'),
+  rSize:document.getElementById('r-size'),
+  rGap:document.getElementById('r-gap'),
+  rOutline:document.getElementById('r-outline'),
+  rOpacity:document.getElementById('r-opacity'),
+  hex:document.getElementById('hex-input')
+};
+
+function syncLab(){
+  renderCrosshair(labCanvas,lab);
+  els.tplOut.textContent=TPLS[lab.tpl].name;
+  els.colOut.textContent=lab.color.toUpperCase();
+  els.sizeOut.textContent=Math.round(lab.size*100)+'%';
+  els.gapOut.textContent=lab.gap;
+  els.outOut.textContent=lab.outline===0?'OFF':lab.outline;
+  els.opOut.textContent=Math.round(lab.opacity*100)+'%';
+  els.readout.textContent=TPLS[lab.tpl].name+' \u00B7 '+lab.color.toUpperCase();
+  var btns=document.querySelectorAll('.tpl-btn');
+  for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',i===lab.tpl);}
+  var sw=document.querySelectorAll('.swatch');
+  for(var j=0;j<sw.length;j++){
+    sw[j].classList.toggle('active',sw[j].dataset.c.toUpperCase()===lab.color.toUpperCase());
+  }
+}
+
+/* template picker buttons */
+var tplGrid=document.getElementById('tpl-grid');
+TPLS.forEach(function(t,i){
+  var b=document.createElement('button');
+  b.className='tpl-btn';b.type='button';
+  b.setAttribute('role','option');
+  b.setAttribute('aria-label',t.name);
+  b.title=t.name;
+  var cv=document.createElement('canvas');cv.width=72;cv.height=72;
+  b.appendChild(cv);
+  renderCrosshair(cv,{tpl:i,color:'#f5f5f5',size:1,gap:3,outline:0,opacity:1});
+  b.addEventListener('click',function(){lab.tpl=i;syncLab();});
+  tplGrid.appendChild(b);
+});
+
+/* swatches (inserted before hex input) */
+var swWrap=document.getElementById('swatches');
+SWATCHES.forEach(function(cl){
+  var b=document.createElement('button');
+  b.className='swatch';b.type='button';
+  b.style.background=cl;b.dataset.c=cl;
+  b.setAttribute('aria-label','Color '+cl);
+  b.addEventListener('click',function(){
+    lab.color=cl;els.hex.value=cl;syncLab();
+  });
+  swWrap.insertBefore(b,els.hex);
+});
+
+els.hex.addEventListener('input',function(){
+  var v=els.hex.value.trim();
+  if(v[0]!=='#')v='#'+v;
+  if(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(v)){lab.color=v;syncLab();}
+});
+els.rSize.addEventListener('input',function(){lab.size=this.value/100;syncLab();});
+els.rGap.addEventListener('input',function(){lab.gap=+this.value;syncLab();});
+els.rOutline.addEventListener('input',function(){lab.outline=+this.value;syncLab();});
+els.rOpacity.addEventListener('input',function(){lab.opacity=this.value/100;syncLab();});
+
+document.getElementById('btn-random').addEventListener('click',function(){
+  lab.tpl=Math.floor(Math.random()*TPLS.length);
+  lab.color=SWATCHES[Math.floor(Math.random()*SWATCHES.length)];
+  els.hex.value=lab.color;
+  syncLab();
+});
+document.getElementById('btn-reset').addEventListener('click',function(){
+  lab=Object.assign({},DEFAULTS);
+  els.hex.value=lab.color;
+  els.rSize.value=100;els.rGap.value=6;els.rOutline.value=1;els.rOpacity.value=100;
+  syncLab();
+});
+syncLab();
+
+/* ==================================================================
+   PROOF MODE DEMO
+   ================================================================== */
+var proofState={tpl:4,color:'#f5f5f5',size:1.1,gap:6,outline:1,opacity:1};
+document.querySelectorAll('.proof-ch').forEach(function(cv){renderCrosshair(cv,proofState);});
+var pt=document.getElementById('proof-toggle');
+pt.addEventListener('change',function(){
+  document.getElementById('capture-pane').classList.toggle('on',pt.checked);
+  document.getElementById('proof-state').textContent=pt.checked?'ON':'OFF';
+});
+
+/* ==================================================================
+   HUD mouse coordinates
+   ================================================================== */
+var coords=document.getElementById('coords');
+if(coords && window.matchMedia('(pointer:fine)').matches){
+  window.addEventListener('mousemove',function(e){
+    coords.textContent='X:'+String(Math.round(e.clientX)).padStart(4,'0')+'\u00A0\u00A0Y:'+String(Math.round(e.clientY)).padStart(4,'0');
+  },{passive:true});
+}
+
+/* ==================================================================
+   SCROLL REVEAL
+   ================================================================== */
+var revs=document.querySelectorAll('.reveal');
+if(REDUCED||!('IntersectionObserver' in window)){
+  revs.forEach(function(el){el.classList.add('in');});
+}else{
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:0.12});
+  revs.forEach(function(el){io.observe(el);});
+}
+
+/* ==================================================================
+   3D TILT on feature cards
+   ================================================================== */
+if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('[data-tilt]').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-0.5;
+      var py=(e.clientY-r.top)/r.height-0.5;
+      card.style.transform='perspective(700px) rotateX('+(-py*7)+'deg) rotateY('+(px*7)+'deg) translateZ(6px)';
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transition='transform .4s ease';
+      card.style.transform='';
+      setTimeout(function(){card.style.transition='';},400);
+    });
+  });
+}
+
+/* ==================================================================
+   THREE.JS HERO — chrome crosshair that aims at your cursor
+   ================================================================== */
+(function(){
+  var mount=document.getElementById('hero-3d');
+  if(!mount||typeof THREE==='undefined')return;
+
+  var scene=new THREE.Scene();
+  scene.fog=new THREE.Fog(0x080808,7,20);
+
+  var camera=new THREE.PerspectiveCamera(45,mount.clientWidth/mount.clientHeight,0.1,100);
+  camera.position.set(0,0.4,6.4);
+
+  var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(mount.clientWidth,mount.clientHeight);
+  mount.appendChild(renderer.domElement);
+
+  /* lights — strictly black & white chrome */
+  scene.add(new THREE.AmbientLight(0xffffff,0.22));
+  var key=new THREE.DirectionalLight(0xffffff,1.15);key.position.set(3,4,5);scene.add(key);
+  var rim=new THREE.DirectionalLight(0xffffff,0.35);rim.position.set(-4,-2,-4);scene.add(rim);
+
+  var group=new THREE.Group();
+  scene.add(group);
+
+  /* the crosshair: 4 arms + gap (= the THICK CROSS template, in 3D) */
+  var metal=new THREE.MeshStandardMaterial({color:0xf5f5f5,metalness:0.85,roughness:0.32});
+  var armLen=1.35,armW=0.3,gap=0.42;
+  var geoV=new THREE.BoxGeometry(armW,armLen,armW);
+  var geoH=new THREE.BoxGeometry(armLen,armW,armW);
+  var offs=gap+armLen/2;
+  var arms=[
+    {g:geoV,p:[0,offs,0]},{g:geoV,p:[0,-offs,0]},
+    {g:geoH,p:[offs,0,0]},{g:geoH,p:[-offs,0,0]}
+  ];
+  arms.forEach(function(a){
+    var m=new THREE.Mesh(a.g,metal);
+    m.position.set(a.p[0],a.p[1],a.p[2]);
+    group.add(m);
+  });
+
+  /* orbital rings for depth */
+  var ringMat1=new THREE.MeshStandardMaterial({color:0x3a3a3a,metalness:0.9,roughness:0.4});
+  var ringMat2=new THREE.MeshStandardMaterial({color:0x242424,metalness:0.9,roughness:0.5});
+  var ring1=new THREE.Mesh(new THREE.TorusGeometry(2.35,0.018,8,120),ringMat1);
+  var ring2=new THREE.Mesh(new THREE.TorusGeometry(2.85,0.012,8,120),ringMat2);
+  group.add(ring1);group.add(ring2);
+
+  /* grid floor */
+  var grid=new THREE.GridHelper(46,46,0x1e1e1e,0x141414);
+  grid.position.y=-2.4;
+  scene.add(grid);
+
+  /* drifting particles */
+  var pGeo=new THREE.BufferGeometry();
+  var pCount=160,pos=new Float32Array(pCount*3);
+  for(var i=0;i<pCount*3;i++){pos[i]=(Math.random()-0.5)*17;}
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  var points=new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x5a5a5a,size:0.022,transparent:true,opacity:0.7}));
+  scene.add(points);
+
+  var mouse={x:0,y:0};
+  if(window.matchMedia('(pointer:fine)').matches){
+    window.addEventListener('mousemove',function(e){
+      mouse.x=(e.clientX/window.innerWidth)*2-1;
+      mouse.y=(e.clientY/window.innerHeight)*2-1;
+    },{passive:true});
+  }
+
+  window.addEventListener('resize',function(){
+    camera.aspect=mount.clientWidth/mount.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(mount.clientWidth,mount.clientHeight);
+    if(REDUCED)renderer.render(scene,camera);
+  });
+
+  var t=0,running=true;
+  document.addEventListener('visibilitychange',function(){running=!document.hidden;});
+
+  function frame(){
+    if(!REDUCED)requestAnimationFrame(frame);
+    if(!running)return;
+    t+=0.008;
+    group.rotation.y+=(mouse.x*0.45-group.rotation.y)*0.05+0.0018;
+    group.rotation.x+=(mouse.y*0.3-group.rotation.x)*0.05;
+    group.position.y=Math.sin(t*1.3)*0.1;
+    ring1.rotation.x=t*0.5;ring1.rotation.y=t*0.32;
+    ring2.rotation.x=-t*0.34;ring2.rotation.z=t*0.22;
+    points.rotation.y=t*0.05;
+    renderer.render(scene,camera);
+  }
+  frame();
+  if(REDUCED)renderer.render(scene,camera);
+})();
+
+})();
+</script>
+</body>
+</html>
