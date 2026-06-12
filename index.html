@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CrosshairY — Free Crosshair Overlay for Windows</title>
+<title>CrosshairY - Free Crosshair Overlay for Windows</title>
 <meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 17 templates, full color control, profiles, proof mode. Free, open source, zero bloat.">
 <meta name="theme-color" content="#080808">
 <link rel="canonical" href="https://crosshairy.xyz/">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crosshairy.xyz/">
-<meta property="og:title" content="CrosshairY — Always on top. Zero bloat.">
+<meta property="og:title" content="CrosshairY - Always on top. Zero bloat.">
 <meta property="og:description" content="Free crosshair overlay for Windows. 17 templates, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
 <meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Favicon: white crosshair on black -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080808'/%3E%3Cg stroke='%23f5f5f5' stroke-width='3'%3E%3Cline x1='16' y1='3' x2='16' y2='11'/%3E%3Cline x1='16' y1='21' x2='16' y2='29'/%3E%3Cline x1='3' y1='16' x2='11' y2='16'/%3E%3Cline x1='21' y1='16' x2='29' y2='16'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -34,7 +35,7 @@
 }
 </script>
 <style>
-/* ============ TOKENS — taken 1:1 from CrosshairY App.xaml ============ */
+/* ============ TOKENS - taken 1:1 from CrosshairY App.xaml ============ */
 :root{
   --bg-deep:#080808;
   --bg-card:#0f0f0f;
@@ -69,6 +70,7 @@ a{color:inherit;text-decoration:none;}
 button{font-family:var(--font-mono);cursor:pointer;}
 :focus-visible{outline:1px solid var(--white);outline-offset:3px;}
 img,canvas{display:block;max-width:100%;}
+code{background:var(--bg-btn);border:1px solid var(--border);padding:1px 6px;font-size:11px;color:var(--fg-mid);white-space:nowrap;}
 
 .wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
 .eyebrow{
@@ -94,6 +96,52 @@ section{padding:120px 0;position:relative;}
   font-family:var(--font-mono);font-size:14px;
 }
 
+/* ============ BOOT LOADER ============ */
+#loader{
+  position:fixed;inset:0;z-index:300;background:var(--bg-deep);
+  display:none;align-items:center;justify-content:center;
+  transition:opacity .55s ease;
+}
+html.boot #loader,html.booted #loader{display:flex;}
+#loader.done{opacity:0;pointer-events:none;}
+.ld-ch{position:relative;width:130px;height:130px;}
+.ld-ch span{position:absolute;background:var(--white);}
+.ld-a1{left:calc(50% - 2.5px);bottom:calc(50% + 13px);width:5px;height:36px;transform:scaleY(0);transform-origin:bottom;animation:ldV .34s cubic-bezier(.215,.61,.355,1) forwards .12s;}
+.ld-a2{left:calc(50% - 2.5px);top:calc(50% + 13px);width:5px;height:36px;transform:scaleY(0);transform-origin:top;animation:ldV .34s cubic-bezier(.215,.61,.355,1) forwards .22s;}
+.ld-a3{right:calc(50% + 13px);top:calc(50% - 2.5px);width:36px;height:5px;transform:scaleX(0);transform-origin:right;animation:ldH .34s cubic-bezier(.215,.61,.355,1) forwards .32s;}
+.ld-a4{left:calc(50% + 13px);top:calc(50% - 2.5px);width:36px;height:5px;transform:scaleX(0);transform-origin:left;animation:ldH .34s cubic-bezier(.215,.61,.355,1) forwards .42s;}
+@keyframes ldV{to{transform:scaleY(1)}}
+@keyframes ldH{to{transform:scaleX(1)}}
+.ld-ch.punch{animation:ldPunch .2s cubic-bezier(.215,.61,.355,1);}
+@keyframes ldPunch{0%{transform:scale(1)}45%{transform:scale(1.08)}100%{transform:scale(1)}}
+.ld-line{position:absolute;background:var(--muted2);}
+.ld-line.h{left:0;right:0;top:50%;height:1px;transform:scaleX(0);animation:ldLX .5s ease-out forwards .82s;}
+.ld-line.v{top:0;bottom:0;left:50%;width:1px;transform:scaleY(0);animation:ldLY .5s ease-out forwards .9s;}
+@keyframes ldLX{to{transform:scaleX(1)}}
+@keyframes ldLY{to{transform:scaleY(1)}}
+.ld-cap{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);font-family:var(--font-display);font-size:19px;letter-spacing:.4em;padding-left:.4em;color:var(--muted);opacity:0;animation:ldFade .6s ease forwards .35s;}
+.ld-tag{position:absolute;top:34px;left:34px;font-size:10px;letter-spacing:.22em;color:var(--muted2);text-transform:uppercase;opacity:0;animation:ldFade .6s ease forwards .2s;}
+.ld-count{position:absolute;bottom:38px;right:34px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.18em;opacity:0;animation:ldFade .6s ease forwards .2s;}
+@keyframes ldFade{to{opacity:1}}
+
+/* hero entrance stagger (plays when the loader hands off) */
+.hero-tag{transition:opacity .65s ease .06s,transform .65s ease .06s;}
+.hero h1{transition:opacity .7s ease .16s,transform .7s ease .16s;}
+.hero-sub{transition:opacity .65s ease .3s,transform .65s ease .3s;}
+.cta-row{transition:opacity .65s ease .44s,transform .65s ease .44s;}
+.hero-stats{transition:opacity .65s ease .58s,transform .65s ease .58s;}
+.hud-label,.hud{transition:opacity .8s ease .7s;}
+html.boot .hero-tag,html.boot .hero h1,html.boot .hero-sub,html.boot .cta-row,html.boot .hero-stats{opacity:0;transform:translateY(18px);}
+html.boot .hud-label,html.boot .hud{opacity:0;}
+
+/* ============ TICKER ============ */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg-panel);}
+.ticker-track{display:flex;width:max-content;padding:13px 0;animation:tick 32s linear infinite;font-size:10px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;will-change:transform;}
+.ticker-track span{padding-right:36px;white-space:nowrap;}
+.ticker-track .x{color:var(--muted2);}
+.ticker:hover .ticker-track{animation-play-state:paused;}
+@keyframes tick{to{transform:translateX(-50%)}}
+
 /* ============ NAV ============ */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -106,13 +154,8 @@ nav{
   height:58px;display:flex;align-items:center;justify-content:space-between;
 }
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:21px;letter-spacing:.06em;line-height:1;}
-.logo svg{width:16px;height:16px;}
-.logo .y{
-  display:inline-flex;align-items:center;justify-content:center;
-  border:1px solid var(--white);width:20px;height:20px;margin-left:2px;
-  transform:translateY(-1px);transition:background .18s,color .18s;
-}
-.logo:hover .y{background:var(--white);color:var(--bg-deep);}
+.logo-img{width:22px;height:22px;transition:transform .35s cubic-bezier(.215,.61,.355,1);}
+.logo:hover .logo-img{transform:scale(1.12);}
 .nav-links{display:flex;gap:28px;align-items:center;font-size:11px;letter-spacing:.16em;}
 .nav-links a{color:var(--muted);transition:color .18s;text-transform:uppercase;}
 .nav-links a:hover{color:var(--white);}
@@ -127,6 +170,7 @@ nav{
   min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
   position:relative;padding:120px 24px 80px;overflow:hidden;
+  cursor:crosshair;
 }
 #hero-3d{position:absolute;inset:0;z-index:0;}
 .hero-content{position:relative;z-index:2;pointer-events:none;}
@@ -158,6 +202,7 @@ h1 .ghost{
   text-transform:uppercase;padding:15px 28px;border:1px solid;
   transition:all .18s ease-out;
 }
+.btn:hover{letter-spacing:.22em;transform:translateY(-1px);}
 .btn-solid{background:var(--white);color:var(--bg-deep);border-color:var(--white);}
 .btn-solid:hover{background:transparent;color:var(--white);}
 .btn-ghost{background:transparent;color:var(--fg-mid);border-color:var(--muted2);}
@@ -173,7 +218,6 @@ h1 .ghost{
 
 /* HUD corner brackets + readouts */
 .hud{position:absolute;z-index:3;pointer-events:none;font-size:10px;letter-spacing:.14em;color:var(--muted2);text-transform:uppercase;}
-.hud-corner{width:26px;height:26px;border:0 solid var(--muted2);}
 .hud.tl{top:78px;left:28px;border-top:1px solid var(--muted2);border-left:1px solid var(--muted2);padding:10px 0 0 0;width:26px;height:26px;}
 .hud.tr{top:78px;right:28px;border-top:1px solid var(--muted2);border-right:1px solid var(--muted2);width:26px;height:26px;}
 .hud.bl{bottom:88px;left:28px;border-bottom:1px solid var(--muted2);border-left:1px solid var(--muted2);width:26px;height:26px;}
@@ -220,10 +264,6 @@ h1 .ghost{
   font-size:24px;letter-spacing:.03em;line-height:1;
 }
 .feat-cell p{color:var(--muted);font-size:12px;line-height:1.65;}
-.feat-cell .tag{
-  position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:.18em;
-  color:var(--muted2);text-transform:uppercase;
-}
 
 /* ============ LAB (signature) ============ */
 #lab{background:var(--bg-panel);}
@@ -235,6 +275,7 @@ h1 .ghost{
     repeating-linear-gradient(90deg, transparent 0 39px, #141414 39px 40px),
     #0c0c0c;
   position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;
+  cursor:crosshair;
 }
 #lab-canvas{width:340px;height:340px;}
 .lab-hudline{position:absolute;font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
@@ -300,7 +341,7 @@ input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;backg
     repeating-linear-gradient(0deg, transparent 0 39px, #131313 39px 40px),
     repeating-linear-gradient(90deg, transparent 0 39px, #131313 39px 40px),
     #0b0b0b;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:center;justify-content:center;cursor:crosshair;
 }
 .proof-pane canvas{width:160px;height:160px;transition:opacity .3s ease;}
 .proof-pane .pane-tag{
@@ -420,15 +461,28 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   #lab-canvas{width:260px;height:260px;}
 }
 </style>
+<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('boot');}</script>
 </head>
 <body>
+
+<!-- ============ BOOT LOADER ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="ld-line h"></div>
+  <div class="ld-line v"></div>
+  <div class="ld-ch" id="ld-ch">
+    <span class="ld-a1"></span><span class="ld-a2"></span><span class="ld-a3"></span><span class="ld-a4"></span>
+  </div>
+  <div class="ld-tag">Initializing overlay</div>
+  <div class="ld-cap">CROSSHAIRY</div>
+  <div class="ld-count" id="ld-count">000</div>
+</div>
 
 <!-- ============ NAV ============ -->
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#" aria-label="CrosshairY home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><g stroke="#f5f5f5" stroke-width="3" fill="none"><line x1="16" y1="2" x2="16" y2="11"/><line x1="16" y1="21" x2="16" y2="30"/><line x1="2" y1="16" x2="11" y2="16"/><line x1="21" y1="16" x2="30" y2="16"/></g></svg>
-      CROSSHAIR<span class="y">Y</span>
+      <img class="logo-img" src="logo.png" alt="" width="22" height="22">
+      CROSSHAIRY
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
@@ -450,7 +504,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   <div class="hud br" aria-hidden="true"></div>
   <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.4</div>
   <div class="hud-label tr">MIT&nbsp;LICENSE</div>
-  <div class="hud-label bl">WIN&nbsp;10&middot;11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
+  <div class="hud-label bl">WIN&nbsp;10/11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
   <div class="hud-label br" id="coords">X:0000&nbsp;&nbsp;Y:0000</div>
 
   <div class="hero-content">
@@ -458,7 +512,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
     <h1>ALWAYS ON TOP.<span class="ghost">ZERO BLOAT.</span></h1>
     <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. <b>No injection. No drivers. Just a window.</b></p>
     <div class="cta-row">
-      <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;&mdash;&nbsp;Free&nbsp;&#8595;</a>
+      <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;-&nbsp;Free&nbsp;&#8595;</a>
       <a class="btn btn-ghost" href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">View&nbsp;Source&nbsp;&#8599;</a>
     </div>
   </div>
@@ -471,22 +525,25 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   </div>
 </header>
 
-<div class="div-x"></div>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
+</div>
 
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap about-grid">
     <div class="reveal">
-      <h2>A CROSSHAIR THAT BEHAVES LIKE IT&rsquo;S <em>PART OF THE OS.</em></h2>
+      <h2>A CROSSHAIR THAT BEHAVES LIKE IT'S <em>PART OF THE OS.</em></h2>
     </div>
     <div class="about-copy reveal">
-      <p>Most overlay tools want an installer, an account, and a corner of your taskbar. CrosshairY wants none of it. It&rsquo;s a <b>single transparent window</b> that sits above everything, ignores your clicks, and disappears from view the moment you ask it to.</p>
-      <p>Built with C# WPF on .NET&nbsp;8 and released under MIT &mdash; the entire source is public. Read it, fork it, build it yourself with one <code>build.bat</code>.</p>
+      <p>Most overlay tools want an installer, an account, and a corner of your taskbar. CrosshairY wants none of it. It's a <b>single transparent window</b> that sits above everything, ignores your clicks, and disappears from view the moment you ask it to.</p>
+      <p>Built with C# WPF on .NET&nbsp;8 and released under MIT - the entire source is public. Read it, fork it, build it yourself with one <code>build.bat</code>.</p>
+      <p>It's free, it stays free, and it ships with one promise: <b>a perfect user experience.</b> No ads, no upsells, no "pro version" hiding behind a paywall.</p>
       <ul class="about-list">
         <li><span>Engine</span><span>C# / WPF / .NET 8</span></li>
-        <li><span>Install</span><span>None &mdash; single .exe</span></li>
+        <li><span>Install</span><span>None - single .exe</span></li>
         <li><span>Game hooks</span><span>Zero. It never touches a process</span></li>
-        <li><span>License</span><span>MIT &mdash; do whatever you want</span></li>
+        <li><span>License</span><span>MIT - do whatever you want</span></li>
       </ul>
     </div>
   </div>
@@ -499,59 +556,50 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">// Features</div>
-      <h2 class="sec-title">EVERYTHING YOU NEED.<br>NOTHING YOU DON&rsquo;T.</h2>
+      <h2 class="sec-title">ONE WINDOW.<br>SEVENTEEN PERSONALITIES.</h2>
     </div>
     <div class="feat-grid reveal">
       <div class="feat-cell" data-tilt>
-        <span class="tag">01</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="2" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="22" y2="12"/></svg></div>
         <h3>17 Templates</h3>
         <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, T-Shape and more. Try every one of them in the Lab below.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">02</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></div>
         <h3>Live Color</h3>
         <p>8 swatches with instant preview, plus a free hex input for any color your monitor can produce.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">03</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
         <h3>Outline &amp; Gap</h3>
-        <p>Outline toggle with 1&ndash;5 thickness and a center-gap slider from 0 to 20 so your aim point stays clean.</p>
+        <p>Outline toggle with 1-5 thickness and a center-gap slider from 0 to 20 so your aim point stays clean.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">04</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><polyline points="4,16 4,20 20,20 20,16"/><line x1="12" y1="4" x2="12" y2="15"/><polyline points="8,11 12,15 16,11"/></svg></div>
         <h3>Size &amp; Opacity</h3>
-        <p>Scale from 50% to 200%, fade from 10% to 100%. Big and bold or barely there &mdash; your call.</p>
+        <p>Scale from 50% to 200%, fade from 10% to 100%. Big and bold or barely there - your call.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">05</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></div>
         <h3>Proof Mode</h3>
-        <p>One keypress hides the overlay from OBS, Discord screenshare and clips. Your screen keeps it; the capture doesn&rsquo;t.</p>
+        <p>One keypress hides the overlay from OBS, Discord screenshare and clips. Your screen keeps it; the capture doesn't.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">06</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><rect x="9" y="13" width="6" height="7"/><rect x="9" y="4" width="6" height="4"/></svg></div>
         <h3>Profiles</h3>
-        <p>Save, load and overwrite configs as plain .json. Drop a friend&rsquo;s file in the folder, hit reload, done.</p>
+        <p>Save, load and overwrite configs as plain .json. Drop a friend's file in the folder, hit reload, done.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">07</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 14l4-8 4 6 3-4 5 6"/><line x1="4" y1="19" x2="20" y2="19"/></svg></div>
         <h3>Auto-Load</h3>
-        <p>Your last config applies itself on launch. Open the .exe and you&rsquo;re already dialed in.</p>
+        <p>Your last config applies itself on launch. Open the .exe and you're already dialed in.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">08</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><line x1="7" y1="12" x2="7" y2="12.01"/><line x1="11" y1="12" x2="11" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/></svg></div>
         <h3>Hotkeys</h3>
         <p>Global keys for proof mode and profile cycling. Switch setups mid-match without ever opening the UI.</p>
       </div>
       <div class="feat-cell" data-tilt>
-        <span class="tag">09</span>
         <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M3 12c2.5-4.5 6-7 9-7s6.5 2.5 9 7c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7z"/><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
         <h3>Invisible Footprint</h3>
         <p>No taskbar icon, borderless, fully click-through. It runs silently and never gets in the way.</p>
@@ -568,7 +616,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
     <div class="sec-head reveal">
       <div class="eyebrow">// The Lab</div>
       <h2 class="sec-title">BUILD YOUR CROSSHAIR.<br>RIGHT HERE.</h2>
-      <p>A working replica of the app&rsquo;s customizer &mdash; same templates, same controls, same look. What you build here is what you get in-game.</p>
+      <p>A working replica of the app's customizer - same templates, same controls, same look. What you build here is what you get in-game.</p>
     </div>
     <div class="lab-grid reveal">
       <div class="lab-preview">
@@ -644,7 +692,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
       </label>
       <span class="state" id="proof-state">OFF</span>
     </div>
-    <p class="proof-copy reveal">A single keypress flags the overlay window with <code>WDA_EXCLUDEFROMCAPTURE</code>, so capture software simply can&rsquo;t see it. Press again to bring it back. The hotkey is yours to configure.</p>
+    <p class="proof-copy reveal">A single keypress flags the overlay window with <code>WDA_EXCLUDEFROMCAPTURE</code>, so capture software simply can't see it. Press again to bring it back. The hotkey is yours to configure.</p>
   </div>
 </section>
 
@@ -654,14 +702,14 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 <section id="download">
   <div class="wrap">
     <div class="reveal">
-      <div class="big">READY WHEN<br><em>YOU ARE.</em></div>
-      <p class="dl-sub">One executable. No installer, no account, no nags. Delete the file and it&rsquo;s gone like it was never there.</p>
+      <div class="big">ONE FILE.<br><em>NO STRINGS.</em></div>
+      <p class="dl-sub">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
       <div class="cta-row">
         <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.4&nbsp;&#8595;</a>
         <a class="btn btn-ghost" href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join&nbsp;the&nbsp;Discord</a>
       </div>
       <div class="dl-meta">
-        <span>Windows&nbsp;10&nbsp;/&nbsp;11&nbsp;&middot;&nbsp;x64</span>
+        <span>Windows&nbsp;10/11&nbsp;(x64)</span>
         <span>.NET&nbsp;8&nbsp;Desktop&nbsp;Runtime</span>
         <span>MIT&nbsp;Licensed</span>
       </div>
@@ -670,7 +718,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
       <div class="step">
         <div class="num">1</div>
         <h4>Grab the .exe</h4>
-        <p>Download <code>CrosshairY.exe</code> from the latest GitHub release. It&rsquo;s a single self-contained file.</p>
+        <p>Download <code>CrosshairY.exe</code> from the latest GitHub release. It's a single self-contained file.</p>
       </div>
       <div class="step">
         <div class="num">2</div>
@@ -686,15 +734,15 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
     <div class="answers reveal">
       <details>
         <summary>Is this a cheat?</summary>
-        <p>No. CrosshairY draws on your screen the way a sticky note on your monitor would &mdash; it never reads, writes or injects into any game process. No drivers, no hooks into games, just a transparent window.</p>
+        <p>No. CrosshairY draws on your screen the way a sticky note on your monitor would - it never reads, writes or injects into any game process. No drivers, no hooks into games, just a transparent window.</p>
       </details>
       <details>
         <summary>Why is it free?</summary>
-        <p>Because it&rsquo;s open source under MIT. The full code is on GitHub for anyone to audit, fork or build themselves with one <code>build.bat</code>.</p>
+        <p>Because it's open source under MIT. The full code is on GitHub for anyone to audit, fork or build themselves with one <code>build.bat</code>.</p>
       </details>
       <details>
         <summary>Where do my profiles live?</summary>
-        <p>As plain .json files in <code>%APPDATA%\CrosshairY\Configs</code>. Share a file with a friend, they drop it in their folder, hit reload, and they&rsquo;re running your exact setup.</p>
+        <p>As plain .json files in <code>%APPDATA%\CrosshairY\Configs</code>. Share a file with a friend, they drop it in their folder, hit reload, and they're running your exact setup.</p>
       </details>
     </div>
   </div>
@@ -704,7 +752,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 <footer>
   <div class="foot-mark" aria-hidden="true">CROSSHAIRY</div>
   <div class="wrap foot-row">
-    <span>&copy; 2026 CrosshairY &middot; MIT License</span>
+    <span>&copy; 2026 CrosshairY - MIT License</span>
     <div class="links">
       <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub&nbsp;&#8599;</a>
       <a href="https://github.com/dcbzpass/CrosshairY/releases" target="_blank" rel="noopener">Releases&nbsp;&#8599;</a>
@@ -723,7 +771,36 @@ var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var OUT_COLOR = 'rgba(0,0,0,0.95)';
 
 /* ==================================================================
-   CROSSHAIR RENDERER — all 17 templates from the app
+   BOOT SEQUENCE
+   ================================================================== */
+(function(){
+  var loader=document.getElementById('loader');
+  if(!loader)return;
+  var de=document.documentElement;
+  if(!de.classList.contains('boot')){
+    if(loader.parentNode)loader.parentNode.removeChild(loader);
+    return;
+  }
+  var cnt=document.getElementById('ld-count');
+  var t0=null;
+  function tick(ts){
+    if(t0===null)t0=ts;
+    var p=Math.min((ts-t0)/950,1);
+    cnt.textContent=String(Math.round(p*100)).padStart(3,'0');
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  setTimeout(function(){document.getElementById('ld-ch').classList.add('punch');},1180);
+  setTimeout(function(){
+    loader.classList.add('done');
+    de.classList.remove('boot');
+    de.classList.add('booted');
+    setTimeout(function(){if(loader.parentNode)loader.parentNode.removeChild(loader);},650);
+  },1480);
+})();
+
+/* ==================================================================
+   CROSSHAIR RENDERER - all 17 templates from the app
    ================================================================== */
 function makeDrawer(ctx){
   function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);}
@@ -842,7 +919,7 @@ function syncLab(){
   els.gapOut.textContent=lab.gap;
   els.outOut.textContent=lab.outline===0?'OFF':lab.outline;
   els.opOut.textContent=Math.round(lab.opacity*100)+'%';
-  els.readout.textContent=TPLS[lab.tpl].name+' \u00B7 '+lab.color.toUpperCase();
+  els.readout.textContent=TPLS[lab.tpl].name+' / '+lab.color.toUpperCase();
   var btns=document.querySelectorAll('.tpl-btn');
   for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',i===lab.tpl);}
   var sw=document.querySelectorAll('.swatch');
@@ -959,7 +1036,7 @@ if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
 }
 
 /* ==================================================================
-   THREE.JS HERO — chrome crosshair that aims at your cursor
+   THREE.JS HERO - chrome crosshair that aims at your cursor
    ================================================================== */
 (function(){
   var mount=document.getElementById('hero-3d');
@@ -976,7 +1053,7 @@ if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
   renderer.setSize(mount.clientWidth,mount.clientHeight);
   mount.appendChild(renderer.domElement);
 
-  /* lights — strictly black & white chrome */
+  /* lights - strictly black & white chrome */
   scene.add(new THREE.AmbientLight(0xffffff,0.22));
   var key=new THREE.DirectionalLight(0xffffff,1.15);key.position.set(3,4,5);scene.add(key);
   var rim=new THREE.DirectionalLight(0xffffff,0.35);rim.position.set(-4,-2,-4);scene.add(rim);
