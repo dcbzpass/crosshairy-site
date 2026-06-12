@@ -7,14 +7,12 @@
 <meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 17 templates, full color control, profiles, proof mode. Free, open source, zero bloat.">
 <meta name="theme-color" content="#080808">
 <link rel="canonical" href="https://crosshairy.site/">
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crosshairy.site/">
 <meta property="og:title" content="CrosshairY - Always on top. Zero bloat.">
 <meta property="og:description" content="Free crosshair overlay for Windows. 17 templates, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
 <meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
 <meta name="twitter:card" content="summary_large_image">
-<!-- Favicon: white crosshair on black -->
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +33,6 @@
 }
 </script>
 <style>
-/* ============ TOKENS - taken 1:1 from CrosshairY App.xaml ============ */
 :root{
   --bg-deep:#080808;
   --bg-card:#0f0f0f;
@@ -88,7 +85,6 @@ h2.sec-title{
 .sec-head p{max-width:520px;color:var(--fg-mid);margin-top:18px;}
 section{padding:120px 0;position:relative;}
 
-/* crosshair divider between sections */
 .div-x{position:relative;height:1px;background:var(--border);max-width:1160px;margin:0 auto;}
 .div-x::after{
   content:"+";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -96,7 +92,6 @@ section{padding:120px 0;position:relative;}
   font-family:var(--font-mono);font-size:14px;
 }
 
-/* ============ BOOT LOADER ============ */
 #loader{
   position:fixed;inset:0;z-index:300;background:var(--bg-deep);
   display:none;align-items:center;justify-content:center;
@@ -124,7 +119,6 @@ html.boot #loader,html.booted #loader{display:flex;}
 .ld-count{position:absolute;bottom:38px;right:34px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.18em;opacity:0;animation:ldFade .6s ease forwards .2s;}
 @keyframes ldFade{to{opacity:1}}
 
-/* hero entrance stagger (plays when the loader hands off) */
 .hero-tag{transition:opacity .65s ease .06s,transform .65s ease .06s;}
 .hero h1{transition:opacity .7s ease .16s,transform .7s ease .16s;}
 .hero-sub{transition:opacity .65s ease .3s,transform .65s ease .3s;}
@@ -134,7 +128,6 @@ html.boot #loader,html.booted #loader{display:flex;}
 html.boot .hero-tag,html.boot .hero h1,html.boot .hero-sub,html.boot .cta-row,html.boot .hero-stats{opacity:0;transform:translateY(18px);}
 html.boot .hud-label,html.boot .hud{opacity:0;}
 
-/* ============ TICKER ============ */
 .ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg-panel);}
 .ticker-track{display:flex;width:max-content;padding:13px 0;animation:tick 32s linear infinite;font-size:10px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;will-change:transform;}
 .ticker-track span{padding-right:36px;white-space:nowrap;}
@@ -142,7 +135,6 @@ html.boot .hud-label,html.boot .hud{opacity:0;}
 .ticker:hover .ticker-track{animation-play-state:paused;}
 @keyframes tick{to{transform:translateX(-50%)}}
 
-/* ============ NAV ============ */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(8,8,8,.72);
@@ -165,7 +157,6 @@ nav{
 }
 .nav-links a.dl:hover{background:var(--white);color:var(--bg-deep);border-color:var(--white);}
 
-/* ============ HERO ============ */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
@@ -216,7 +207,6 @@ h1 .ghost{
 .hero-stats span:last-child{border-right:none;}
 .hero-stats b{color:var(--white);font-weight:500;margin-right:6px;}
 
-/* HUD corner brackets + readouts */
 .hud{position:absolute;z-index:3;pointer-events:none;font-size:10px;letter-spacing:.14em;color:var(--muted2);text-transform:uppercase;}
 .hud.tl{top:78px;left:28px;border-top:1px solid var(--muted2);border-left:1px solid var(--muted2);padding:10px 0 0 0;width:26px;height:26px;}
 .hud.tr{top:78px;right:28px;border-top:1px solid var(--muted2);border-right:1px solid var(--muted2);width:26px;height:26px;}
@@ -228,7 +218,6 @@ h1 .ghost{
 .hud-label.br{bottom:94px;right:66px;text-align:right;font-variant-numeric:tabular-nums;}
 .hud-label.bl{bottom:94px;left:66px;}
 
-/* ============ ABOUT ============ */
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start;}
 .about-grid h2{
   font-family:var(--font-display);font-weight:400;
@@ -245,7 +234,6 @@ h1 .ghost{
 }
 .about-list li span:first-child{color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-size:11px;}
 
-/* ============ FEATURES ============ */
 .feat-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   border:1px solid var(--border);background:var(--border);gap:1px;
@@ -265,7 +253,6 @@ h1 .ghost{
 }
 .feat-cell p{color:var(--muted);font-size:12px;line-height:1.65;}
 
-/* ============ LAB (signature) ============ */
 #lab{background:var(--bg-panel);}
 .lab-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;border:1px solid var(--border);background:var(--border);}
 .lab-preview{
@@ -332,7 +319,6 @@ input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;backg
 .lab-note a{color:var(--muted);border-bottom:1px solid var(--muted2);}
 .lab-note a:hover{color:var(--white);}
 
-/* ============ PROOF MODE ============ */
 .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--border);background:var(--border);}
 .proof-pane{
   position:relative;min-height:340px;
@@ -362,7 +348,6 @@ input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;backg
   margin-top:34px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
 }
 .proof-toggle-row .state{color:var(--white);min-width:34px;font-variant-numeric:tabular-nums;}
-/* exact replica of the app's ToggleSwitch (41x20, 14px thumb, .14s ease-out cubic) */
 .switch{position:relative;width:41px;height:20px;display:inline-block;}
 .switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2;}
 .switch .track{
@@ -378,7 +363,6 @@ input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;backg
 .proof-copy{max-width:640px;margin:30px auto 0;text-align:center;color:var(--fg-mid);font-size:12px;}
 .proof-copy code{color:var(--white);background:var(--bg-btn);border:1px solid var(--border);padding:2px 7px;font-size:11px;}
 
-/* ============ DOWNLOAD ============ */
 #download{background:var(--bg-panel);text-align:center;}
 #download .big{
   font-family:var(--font-display);font-weight:400;
@@ -415,7 +399,6 @@ input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;backg
 .answers details[open] summary::after{transform:rotate(45deg);}
 .answers details p{padding:0 4px 22px;color:var(--fg-mid);font-size:12px;max-width:620px;}
 
-/* ============ FOOTER ============ */
 footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;position:relative;}
 .foot-mark{
   font-family:var(--font-display);font-size:clamp(80px,16.5vw,236px);
@@ -431,7 +414,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 .foot-row a{color:var(--muted);transition:color .18s;}
 .foot-row a:hover{color:var(--white);}
 
-/* ============ REVEAL / MOTION ============ */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.in{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){
@@ -440,7 +422,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   .reveal{opacity:1;transform:none;}
 }
 
-/* ============ RESPONSIVE ============ */
 @media (max-width:980px){
   .feat-grid{grid-template-columns:repeat(2,1fr);}
   .lab-grid,.about-grid,.proof-grid{grid-template-columns:1fr;gap:1px;}
@@ -465,7 +446,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 </head>
 <body>
 
-<!-- ============ BOOT LOADER ============ -->
 <div id="loader" aria-hidden="true">
   <div class="ld-line h"></div>
   <div class="ld-line v"></div>
@@ -477,7 +457,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   <div class="ld-count" id="ld-count">000</div>
 </div>
 
-<!-- ============ NAV ============ -->
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#" aria-label="CrosshairY home">
@@ -494,7 +473,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
 <header class="hero">
   <div id="hero-3d" aria-hidden="true"></div>
 
@@ -529,7 +507,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
 </div>
 
-<!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap about-grid">
     <div class="reveal">
@@ -551,7 +528,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 
 <div class="div-x"></div>
 
-<!-- ============ FEATURES ============ -->
 <section id="features">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -610,7 +586,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 
 <div class="div-x"></div>
 
-<!-- ============ LAB ============ -->
 <section id="lab">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -665,7 +640,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 
 <div class="div-x"></div>
 
-<!-- ============ PROOF MODE ============ -->
 <section id="proof">
   <div class="wrap">
     <div class="sec-head reveal" style="text-align:center;">
@@ -698,7 +672,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 
 <div class="div-x"></div>
 
-<!-- ============ DOWNLOAD ============ -->
 <section id="download">
   <div class="wrap">
     <div class="reveal">
@@ -748,7 +721,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
 <footer>
   <div class="foot-mark" aria-hidden="true">CROSSHAIRY</div>
   <div class="wrap foot-row">
@@ -770,9 +742,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
 var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var OUT_COLOR = 'rgba(0,0,0,0.95)';
 
-/* ==================================================================
-   BOOT SEQUENCE
-   ================================================================== */
 (function(){
   var loader=document.getElementById('loader');
   if(!loader)return;
@@ -799,9 +768,6 @@ var OUT_COLOR = 'rgba(0,0,0,0.95)';
   },1480);
 })();
 
-/* ==================================================================
-   CROSSHAIR RENDERER - all 17 templates from the app
-   ================================================================== */
 function makeDrawer(ctx){
   function line(x1,y1,x2,y2){ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);}
   function stroked(build,lw,outline){
@@ -888,9 +854,6 @@ function renderCrosshair(canvas,state){
   ctx.restore();
 }
 
-/* ==================================================================
-   LAB
-   ================================================================== */
 var SWATCHES=['#F5F5F5','#FF3B3B','#3BFF7E','#3BD7FF','#FF3BD0','#FFE43B','#FF8C1A','#5468FF'];
 var DEFAULTS={tpl:4,color:'#F5F5F5',size:1,gap:6,outline:1,opacity:1};
 var lab=Object.assign({},DEFAULTS);
@@ -928,7 +891,6 @@ function syncLab(){
   }
 }
 
-/* template picker buttons */
 var tplGrid=document.getElementById('tpl-grid');
 TPLS.forEach(function(t,i){
   var b=document.createElement('button');
@@ -943,7 +905,6 @@ TPLS.forEach(function(t,i){
   tplGrid.appendChild(b);
 });
 
-/* swatches (inserted before hex input) */
 var swWrap=document.getElementById('swatches');
 SWATCHES.forEach(function(cl){
   var b=document.createElement('button');
@@ -980,9 +941,6 @@ document.getElementById('btn-reset').addEventListener('click',function(){
 });
 syncLab();
 
-/* ==================================================================
-   PROOF MODE DEMO
-   ================================================================== */
 var proofState={tpl:4,color:'#f5f5f5',size:1.1,gap:6,outline:1,opacity:1};
 document.querySelectorAll('.proof-ch').forEach(function(cv){renderCrosshair(cv,proofState);});
 var pt=document.getElementById('proof-toggle');
@@ -991,9 +949,6 @@ pt.addEventListener('change',function(){
   document.getElementById('proof-state').textContent=pt.checked?'ON':'OFF';
 });
 
-/* ==================================================================
-   HUD mouse coordinates
-   ================================================================== */
 var coords=document.getElementById('coords');
 if(coords && window.matchMedia('(pointer:fine)').matches){
   window.addEventListener('mousemove',function(e){
@@ -1001,9 +956,6 @@ if(coords && window.matchMedia('(pointer:fine)').matches){
   },{passive:true});
 }
 
-/* ==================================================================
-   SCROLL REVEAL
-   ================================================================== */
 var revs=document.querySelectorAll('.reveal');
 if(REDUCED||!('IntersectionObserver' in window)){
   revs.forEach(function(el){el.classList.add('in');});
@@ -1016,9 +968,6 @@ if(REDUCED||!('IntersectionObserver' in window)){
   revs.forEach(function(el){io.observe(el);});
 }
 
-/* ==================================================================
-   3D TILT on feature cards
-   ================================================================== */
 if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
   document.querySelectorAll('[data-tilt]').forEach(function(card){
     card.addEventListener('mousemove',function(e){
@@ -1035,9 +984,6 @@ if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
   });
 }
 
-/* ==================================================================
-   THREE.JS HERO - chrome crosshair that aims at your cursor
-   ================================================================== */
 (function(){
   var mount=document.getElementById('hero-3d');
   if(!mount||typeof THREE==='undefined')return;
@@ -1053,16 +999,14 @@ if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
   renderer.setSize(mount.clientWidth,mount.clientHeight);
   mount.appendChild(renderer.domElement);
 
-  /* lights - strictly black & white chrome */
-  scene.add(new THREE.AmbientLight(0xffffff,0.22));
+    scene.add(new THREE.AmbientLight(0xffffff,0.22));
   var key=new THREE.DirectionalLight(0xffffff,1.15);key.position.set(3,4,5);scene.add(key);
   var rim=new THREE.DirectionalLight(0xffffff,0.35);rim.position.set(-4,-2,-4);scene.add(rim);
 
   var group=new THREE.Group();
   scene.add(group);
 
-  /* the crosshair: 4 arms + gap (= the THICK CROSS template, in 3D) */
-  var metal=new THREE.MeshStandardMaterial({color:0xf5f5f5,metalness:0.85,roughness:0.32});
+    var metal=new THREE.MeshStandardMaterial({color:0xf5f5f5,metalness:0.85,roughness:0.32});
   var armLen=1.35,armW=0.3,gap=0.42;
   var geoV=new THREE.BoxGeometry(armW,armLen,armW);
   var geoH=new THREE.BoxGeometry(armLen,armW,armW);
@@ -1077,20 +1021,17 @@ if(!REDUCED && window.matchMedia('(pointer:fine)').matches){
     group.add(m);
   });
 
-  /* orbital rings for depth */
-  var ringMat1=new THREE.MeshStandardMaterial({color:0x3a3a3a,metalness:0.9,roughness:0.4});
+    var ringMat1=new THREE.MeshStandardMaterial({color:0x3a3a3a,metalness:0.9,roughness:0.4});
   var ringMat2=new THREE.MeshStandardMaterial({color:0x242424,metalness:0.9,roughness:0.5});
   var ring1=new THREE.Mesh(new THREE.TorusGeometry(2.35,0.018,8,120),ringMat1);
   var ring2=new THREE.Mesh(new THREE.TorusGeometry(2.85,0.012,8,120),ringMat2);
   group.add(ring1);group.add(ring2);
 
-  /* grid floor */
-  var grid=new THREE.GridHelper(46,46,0x1e1e1e,0x141414);
+    var grid=new THREE.GridHelper(46,46,0x1e1e1e,0x141414);
   grid.position.y=-2.4;
   scene.add(grid);
 
-  /* drifting particles */
-  var pGeo=new THREE.BufferGeometry();
+    var pGeo=new THREE.BufferGeometry();
   var pCount=160,pos=new Float32Array(pCount*3);
   for(var i=0;i<pCount*3;i++){pos[i]=(Math.random()-0.5)*17;}
   pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
