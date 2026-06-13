@@ -66,7 +66,12 @@ export const TPLS=[
    d.stroked(function(){
      c.moveTo(0,-r);c.lineTo(r,0);c.lineTo(0,r);c.lineTo(-r,0);c.closePath();
    },2*s,o);
- }}
+ }},
+ {name:'DOT RING',draw:function(d,c,s,g,o){d.stroked(function(){c.arc(0,0,10*s,0,7);},1.8*s,o);d.filled(function(){c.arc(0,0,2.2*s,0,7);},o);}},
+ {name:'2 RINGS',draw:function(d,c,s,g,o){d.stroked(function(){c.arc(0,0,12*s,0,7);},1.6*s,o);d.stroked(function(){c.arc(0,0,5*s,0,7);},1.6*s,o);}},
+ {name:'PLUS \u00B7',draw:function(d,c,s,g,o){var gg=Math.max(g,4*s),L=gg+12*s;d.stroked(function(){d.line(0,-gg,0,-L);d.line(0,gg,0,L);d.line(-gg,0,-L,0);d.line(gg,0,L,0);},3*s,o);d.filled(function(){c.arc(0,0,2*s,0,7);},o);}},
+ {name:'CORNERS',draw:function(d,c,s,g,o){var r=11*s,len=5*s;d.stroked(function(){d.line(-r,-r,-r+len,-r);d.line(-r,-r,-r,-r+len);d.line(r,-r,r-len,-r);d.line(r,-r,r,-r+len);d.line(-r,r,-r+len,r);d.line(-r,r,-r,r-len);d.line(r,r,r-len,r);d.line(r,r,r,r-len);},2*s,o);}},
+ {name:'X THICK',draw:function(d,c,s,g,o){var a=0.7071,r1=g,r2=g+13*s;d.stroked(function(){d.line(a*r1,a*r1,a*r2,a*r2);d.line(-a*r1,a*r1,-a*r2,a*r2);d.line(a*r1,-a*r1,a*r2,-a*r2);d.line(-a*r1,-a*r1,-a*r2,-a*r2);},4.5*s,o);}}
 ];
 
 export function renderCrosshair(canvas,state){

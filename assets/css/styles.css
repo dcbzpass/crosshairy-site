@@ -12,6 +12,7 @@
   --red:#aa2020;
   --font-display:'Bebas Neue', sans-serif;
   --font-mono:'IBM Plex Mono', monospace;
+  --ann-h:40px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0;}
 html{scroll-behavior:smooth;}
@@ -100,8 +101,29 @@ html.boot .hud-label,html.boot .hud{opacity:0;}
 .ticker:hover .ticker-track{animation-play-state:paused;}
 @keyframes tick{to{transform:translateX(-50%)}}
 
+.announce{
+  position:fixed;top:0;left:0;right:0;z-index:120;
+  height:var(--ann-h);display:flex;align-items:center;justify-content:center;
+  gap:14px;padding:0 16px;background:var(--white);color:var(--bg-deep);
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+}
+.announce .ann-dot{width:7px;height:7px;background:var(--red);flex:none;}
+.announce .ann-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.announce .ann-text b{font-weight:500;}
+.announce .ann-dl{
+  flex:none;border:1px solid var(--bg-deep);padding:5px 12px;
+  color:var(--bg-deep);font-weight:500;transition:background .18s,color .18s;
+}
+.announce .ann-dl:hover{background:var(--bg-deep);color:var(--white);}
+.announce .ann-x{
+  flex:none;background:none;border:none;color:var(--bg-deep);
+  font-size:13px;line-height:1;padding:4px;opacity:.6;transition:opacity .18s;
+}
+.announce .ann-x:hover{opacity:1;}
+html.ann-hidden{--ann-h:0px;}
+html.ann-hidden .announce{display:none;}
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:var(--ann-h);left:0;right:0;z-index:100;
   background:rgba(8,8,8,.72);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);

@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrosshairY</title>
-<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 17 templates, full color control, profiles, proof mode. Free, open source, zero bloat.">
+<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, full color control, profiles, proof mode. Free, open source, zero bloat.">
 <meta name="theme-color" content="#080808">
 <link rel="canonical" href="https://crosshairy.site/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crosshairy.site/">
 <meta property="og:title" content="CrosshairY - Always on top. Zero bloat.">
-<meta property="og:description" content="Free crosshair overlay for Windows. 17 templates, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
+<meta property="og:description" content="Free crosshair overlay for Windows. 22 templates, a custom builder with mirror and undo, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
 <meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -29,13 +29,20 @@
   "license": "https://github.com/dcbzpass/CrosshairY/blob/main/LICENSE",
   "url": "https://crosshairy.site/",
   "downloadUrl": "https://github.com/dcbzpass/CrosshairY/releases/latest",
-  "softwareVersion": "1.0.4"
+  "softwareVersion": "1.0.5"
 }
 </script>
 <link rel="stylesheet" href="assets/css/styles.css">
 <script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('boot');}</script>
 </head>
 <body>
+
+<div class="announce" id="announce" role="region" aria-label="Release announcement">
+  <span class="ann-dot" aria-hidden="true"></span>
+  <span class="ann-text">CrosshairY <b>v1.0.5</b> is out - custom builder, mirror, undo/redo and 5 new templates.</span>
+  <a class="ann-dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;&#8595;</a>
+  <button class="ann-x" id="ann-x" type="button" aria-label="Dismiss announcement">&#10005;</button>
+</div>
 
 <div id="loader" aria-hidden="true">
   <div class="ld-line h"></div>
@@ -71,7 +78,7 @@
   <div class="hud tr" aria-hidden="true"></div>
   <div class="hud bl" aria-hidden="true"></div>
   <div class="hud br" aria-hidden="true"></div>
-  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.4</div>
+  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.5</div>
   <div class="hud-label tr">MIT&nbsp;LICENSE</div>
   <div class="hud-label bl">WIN&nbsp;10/11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
   <div class="hud-label br" id="coords">X:0000&nbsp;&nbsp;Y:0000</div>
@@ -87,7 +94,7 @@
   </div>
 
   <div class="hero-stats">
-    <span><b>17</b>Templates</span>
+    <span><b>22</b>Templates</span>
     <span><b>8</b>Swatches&nbsp;+&nbsp;Hex</span>
     <span><b>0</b>Taskbar&nbsp;Icons</span>
     <span><b>100%</b>Free</span>
@@ -95,7 +102,7 @@
 </header>
 
 <div class="ticker" aria-hidden="true">
-  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>17 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
+  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
 </div>
 
 <section id="about">
@@ -123,13 +130,13 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">// Features</div>
-      <h2 class="sec-title">ONE WINDOW.<br>SEVENTEEN PERSONALITIES.</h2>
+      <h2 class="sec-title">ONE WINDOW.<br>TWENTY-TWO PERSONALITIES.</h2>
     </div>
     <div class="feat-grid reveal">
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="2" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="22" y2="12"/></svg></div>
-        <h3>17 Templates</h3>
-        <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, T-Shape and more. Try every one of them in the Lab below.</p>
+        <h3>22 Templates</h3>
+        <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, Corners, Dot&nbsp;Ring and more. Try every one of them in the Lab below.</p>
       </div>
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></div>
@@ -170,6 +177,21 @@
         <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M3 12c2.5-4.5 6-7 9-7s6.5 2.5 9 7c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7z"/><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
         <h3>Invisible Footprint</h3>
         <p>No taskbar icon, borderless, fully click-through. It runs silently and never gets in the way.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><line x1="14" y1="6" x2="18" y2="10"/></svg></div>
+        <h3>Custom Builder</h3>
+        <p>Draw your own on a 15, 30 or 60 grid with pencil, eraser, fill, line, rectangle and ellipse, then save it to your My Crosshairs collection.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><polyline points="7,9 4,12 7,15"/><polyline points="17,9 20,12 17,15"/></svg></div>
+        <h3>Mirror &amp; History</h3>
+        <p>Left/right, up/down or 4-way mirror symmetry for clean designs, with full undo and redo on Ctrl+Z and Ctrl+Y.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="9"/><rect x="11" y="11" width="11" height="8"/></svg></div>
+        <h3>Multi-Monitor</h3>
+        <p>Pick which display the crosshair lives on from Settings. Crisp vector rendering keeps custom builds sharp at any size.</p>
       </div>
     </div>
   </div>
@@ -269,7 +291,7 @@
       <div class="big">ONE FILE.<br><em>NO STRINGS.</em></div>
       <p class="dl-sub">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
       <div class="cta-row">
-        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.4&nbsp;&#8595;</a>
+        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.5&nbsp;&#8595;</a>
         <a class="btn btn-ghost" href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join&nbsp;the&nbsp;Discord</a>
       </div>
       <div class="dl-meta">

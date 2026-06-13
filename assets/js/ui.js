@@ -1,6 +1,17 @@
 import { REDUCED } from './env.js';
 
 export function initUI(){
+  var annX=document.getElementById('ann-x');
+  if(annX){
+    if(sessionStorage.getItem('cy-ann-hidden')==='1'){
+      document.documentElement.classList.add('ann-hidden');
+    }
+    annX.addEventListener('click',function(){
+      document.documentElement.classList.add('ann-hidden');
+      try{sessionStorage.setItem('cy-ann-hidden','1');}catch(e){}
+    });
+  }
+
   var coords=document.getElementById('coords');
   if(coords && window.matchMedia('(pointer:fine)').matches){
     window.addEventListener('mousemove',function(e){

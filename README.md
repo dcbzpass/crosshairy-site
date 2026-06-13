@@ -22,7 +22,7 @@ Live at **[crosshairy.site](https://crosshairy.site)**, served as a static site 
     └── js/                 ES modules (no build step)
         ├── main.js         Entry point, imports and boots each feature
         ├── env.js          Shared flags (reduced-motion, pointer type)
-        ├── crosshair.js    Crosshair render engine + the 17 templates
+        ├── crosshair.js    Crosshair render engine + the 22 templates
         ├── loader.js       Boot loader animation
         ├── lab.js          "The Lab" interactive customizer
         ├── proof.js        Proof Mode demo toggle
