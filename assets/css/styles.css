@@ -108,7 +108,7 @@ html.boot .hud-label,html.boot .hud{opacity:0;}
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;
 }
 .announce .ann-dot{width:7px;height:7px;background:var(--red);flex:none;}
-.announce .ann-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.announce .ann-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .announce .ann-text b{font-weight:500;}
 .announce .ann-dl{
   flex:none;border:1px solid var(--bg-deep);padding:5px 12px;
@@ -427,4 +427,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 40px;overflow:hidden;po
   .hero-stats span{padding:0 10px;}
   .tpl-grid{grid-template-columns:repeat(5,1fr);}
   #lab-canvas{width:260px;height:260px;}
+  .announce{gap:10px;padding:0 12px;letter-spacing:.06em;}
+  .announce .ann-dl{padding:5px 10px;}
 }
