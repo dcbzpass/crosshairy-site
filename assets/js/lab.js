@@ -1,4 +1,3 @@
-// The Lab: an interactive replica of the in-app crosshair customizer.
 import { TPLS, renderCrosshair } from './crosshair.js';
 
 export function initLab(){

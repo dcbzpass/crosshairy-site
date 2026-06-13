@@ -1,5 +1,3 @@
-// Boot loader animation. Only runs when the document has the 'boot' class
-// (set inline in <head> when reduced-motion is not requested).
 export function initLoader(){
   (function(){
     var loader=document.getElementById('loader');

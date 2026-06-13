@@ -1,5 +1,3 @@
-// Crosshair rendering engine: the 17 templates and the canvas painter.
-// Shared by the Lab customizer and the Proof Mode demo.
 const OUT_COLOR = 'rgba(0,0,0,0.95)';
 
 function makeDrawer(ctx){

@@ -1,4 +1,3 @@
-// Misc page interactions: HUD cursor coordinates, scroll-reveal, card tilt.
 import { REDUCED } from './env.js';
 
 export function initUI(){

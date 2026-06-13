@@ -1,4 +1,3 @@
-// Proof Mode demo: toggles the 'capture' pane between visible and hidden.
 import { renderCrosshair } from './crosshair.js';
 
 export function initProof(){

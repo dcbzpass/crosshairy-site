@@ -1,4 +1,3 @@
-// Hero background: a slowly rotating 3D crosshair built with three.js (CDN global).
 import { REDUCED } from './env.js';
 
 export function initHero3D(){
