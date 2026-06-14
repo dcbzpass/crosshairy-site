@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrosshairY</title>
-<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, full color control, profiles, proof mode. Free, open source, zero bloat.">
+<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, follow-cursor mode, position offset, global hotkeys, auto-update, profiles and proof mode. Free, open source, zero bloat.">
 <meta name="theme-color" content="#080808">
 <link rel="canonical" href="https://crosshairy.site/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crosshairy.site/">
 <meta property="og:title" content="CrosshairY - Always on top. Zero bloat.">
-<meta property="og:description" content="Free crosshair overlay for Windows. 22 templates, a custom builder with mirror and undo, 8 colors + hex, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
+<meta property="og:description" content="Free crosshair overlay for Windows. 22 templates, a custom builder with mirror and undo, follow-cursor mode, position offset, global hotkeys, auto-update, profiles with auto-load, and a proof mode that hides the overlay from screen capture.">
 <meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -29,7 +29,7 @@
   "license": "https://github.com/dcbzpass/CrosshairY/blob/main/LICENSE",
   "url": "https://crosshairy.site/",
   "downloadUrl": "https://github.com/dcbzpass/CrosshairY/releases/latest",
-  "softwareVersion": "1.0.5"
+  "softwareVersion": "1.0.6"
 }
 </script>
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -39,7 +39,7 @@
 
 <div class="announce" id="announce" role="region" aria-label="Release announcement">
   <span class="ann-dot" aria-hidden="true"></span>
-  <span class="ann-text">CrosshairY <b>v1.0.5</b> is out - custom builder, mirror, undo/redo and 5 new templates.</span>
+  <span class="ann-text">CrosshairY <b>v1.0.6</b> is out - follow-cursor mode, position offset, auto-update and global hotkeys.</span>
   <a class="ann-dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;&#8595;</a>
   <button class="ann-x" id="ann-x" type="button" aria-label="Dismiss announcement">&#10005;</button>
 </div>
@@ -78,7 +78,7 @@
   <div class="hud tr" aria-hidden="true"></div>
   <div class="hud bl" aria-hidden="true"></div>
   <div class="hud br" aria-hidden="true"></div>
-  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.5</div>
+  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.6</div>
   <div class="hud-label tr">MIT&nbsp;LICENSE</div>
   <div class="hud-label bl">WIN&nbsp;10/11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
   <div class="hud-label br" id="coords">X:0000&nbsp;&nbsp;Y:0000</div>
@@ -102,7 +102,7 @@
 </header>
 
 <div class="ticker" aria-hidden="true">
-  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>NO ACCOUNT</span><span class="x">+</span><span>NO ADS</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
+  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>FOLLOW CURSOR</span><span class="x">+</span><span>AUTO-UPDATE</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>FOLLOW CURSOR</span><span class="x">+</span><span>AUTO-UPDATE</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
 </div>
 
 <section id="about">
@@ -161,7 +161,7 @@
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><rect x="9" y="13" width="6" height="7"/><rect x="9" y="4" width="6" height="4"/></svg></div>
         <h3>Profiles</h3>
-        <p>Save, load and overwrite configs as plain .json. Drop a friend's file in the folder, hit reload, done.</p>
+        <p>Save, load, duplicate and overwrite configs as plain .json, each with a live crosshair thumbnail.</p>
       </div>
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><path d="M4 14l4-8 4 6 3-4 5 6"/><line x1="4" y1="19" x2="20" y2="19"/></svg></div>
@@ -171,7 +171,7 @@
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><line x1="7" y1="12" x2="7" y2="12.01"/><line x1="11" y1="12" x2="11" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/></svg></div>
         <h3>Hotkeys</h3>
-        <p>Global keys for proof mode and profile cycling. Switch setups mid-match without ever opening the UI.</p>
+        <p>Global keys to toggle the overlay, switch follow-cursor mode and cycle profiles, all without opening the UI.</p>
       </div>
       <div class="feat-cell" data-tilt>
         <div class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M3 12c2.5-4.5 6-7 9-7s6.5 2.5 9 7c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7z"/><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
@@ -192,6 +192,21 @@
         <div class="glyph"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="9"/><rect x="11" y="11" width="11" height="8"/></svg></div>
         <h3>Multi-Monitor</h3>
         <p>Pick which display the crosshair lives on from Settings. Crisp vector rendering keeps custom builds sharp at any size.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><polyline points="9,5 12,2 15,5"/><polyline points="9,19 12,22 15,19"/><polyline points="5,9 2,12 5,15"/><polyline points="19,9 22,12 19,15"/></svg></div>
+        <h3>Position Offset</h3>
+        <p>Nudge the crosshair off-center on X and Y with -/+ buttons or an exact value, clamped to the screen bounds.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M5 3l5 16 2.2-6.8L19 10z"/></svg></div>
+        <h3>Follow Cursor</h3>
+        <p>Replace the Windows cursor with your crosshair so it tracks the pointer with zero lag, then restores the moment it is off.</p>
+      </div>
+      <div class="feat-cell" data-tilt>
+        <div class="glyph"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 3 21 8 16 8"/><line x1="12" y1="8" x2="12" y2="14"/><polyline points="9 11 12 14 15 11"/></svg></div>
+        <h3>Auto-Update</h3>
+        <p>Checks for new releases on launch. One click downloads, installs silently and relaunches, or check manually any time.</p>
       </div>
     </div>
   </div>
@@ -291,7 +306,7 @@
       <div class="big">ONE FILE.<br><em>NO STRINGS.</em></div>
       <p class="dl-sub">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
       <div class="cta-row">
-        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.5&nbsp;&#8595;</a>
+        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.6&nbsp;&#8595;</a>
         <a class="btn btn-ghost" href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join&nbsp;the&nbsp;Discord</a>
       </div>
       <div class="dl-meta">
