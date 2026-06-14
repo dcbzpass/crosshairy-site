@@ -227,9 +227,13 @@ h1 .ghost{
 }
 .feat-grid{
   display:grid;grid-template-columns:repeat(5,1fr);
-  border:1px solid var(--border);background:var(--border);gap:1px;
+  border-top:1px solid var(--border);border-left:1px solid var(--border);
+  align-items:start;
 }
-.feat-cell{background:var(--bg-card);transition:background .25s;}
+.feat-cell{
+  background:var(--bg-card);transition:background .25s;
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+}
 .feat-cell summary{
   list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
   padding:15px 14px;transition:background .2s;
@@ -249,6 +253,16 @@ h1 .ghost{
 }
 .feat-cell[open] summary::after{transform:rotate(45deg);}
 .feat-cell p{color:var(--muted);font-size:11.5px;line-height:1.55;padding:0 14px 16px;}
+.feat-cell[open] > p{animation:featReveal .26s ease;}
+@keyframes featReveal{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:none;}}
+@supports (interpolate-size:allow-keywords){
+  :root{interpolate-size:allow-keywords;}
+  .feat-cell::details-content{
+    block-size:0;overflow:clip;
+    transition:block-size .26s ease,content-visibility .26s allow-discrete;
+  }
+  .feat-cell[open]::details-content{block-size:auto;}
+}
 
 #lab{background:var(--bg-panel);}
 .lab-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;border:1px solid var(--border);background:var(--border);}
