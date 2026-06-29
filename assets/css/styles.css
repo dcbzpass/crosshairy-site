@@ -227,12 +227,12 @@ h1 .ghost{
 }
 .feat-grid{
   display:grid;grid-template-columns:repeat(5,1fr);
-  border-top:1px solid var(--border);border-left:1px solid var(--border);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
   align-items:stretch;
 }
 .feat-cell{
   background:var(--bg-card);transition:background .25s;
-  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
 }
 .feat-cell summary{
   list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
