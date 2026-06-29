@@ -228,7 +228,7 @@ h1 .ghost{
 .feat-grid{
   display:grid;grid-template-columns:repeat(5,1fr);
   border-top:1px solid var(--border);border-left:1px solid var(--border);
-  align-items:start;
+  align-items:stretch;
 }
 .feat-cell{
   background:var(--bg-card);transition:background .25s;
