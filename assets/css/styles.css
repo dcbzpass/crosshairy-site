@@ -163,8 +163,7 @@ nav{
 #download .hero-cta{margin-top:46px;}
 #download .hero-badge{margin-top:24px;}
 .dl-links{
-  margin-top:52px;padding-top:32px;border-top:1px solid var(--border);
-  max-width:360px;margin-left:auto;margin-right:auto;
+  margin-top:44px;
   display:flex;gap:40px;justify-content:center;flex-wrap:wrap;font-size:12px;letter-spacing:.06em;
 }
 .dl-links a{color:var(--muted);border-bottom:1px solid var(--muted2);padding-bottom:2px;transition:color .18s,border-color .18s;}
