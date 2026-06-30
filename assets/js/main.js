@@ -1,11 +1,22 @@
-import { initLoader } from './loader.js';
-import { initLab } from './lab.js';
-import { initProof } from './proof.js';
-import { initUI } from './ui.js';
-import { initHero3D } from './hero3d.js';
+const annX = document.getElementById('ann-x');
+if (annX) {
+  annX.addEventListener('click', () => {
+    document.documentElement.classList.add('ann-hidden');
+  });
+}
 
-initLoader();
-initLab();
-initProof();
-initUI();
-initHero3D();
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reveals = document.querySelectorAll('.reveal');
+if (reduceMotion || !('IntersectionObserver' in window)) {
+  reveals.forEach((el) => el.classList.add('in'));
+} else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  reveals.forEach((el) => io.observe(el));
+}

@@ -33,7 +33,6 @@
 }
 </script>
 <link rel="stylesheet" href="assets/css/styles.css">
-<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('boot');}</script>
 </head>
 <body>
 
@@ -44,17 +43,6 @@
   <button class="ann-x" id="ann-x" type="button" aria-label="Dismiss announcement">&#10005;</button>
 </div>
 
-<div id="loader" aria-hidden="true">
-  <div class="ld-line h"></div>
-  <div class="ld-line v"></div>
-  <div class="ld-ch" id="ld-ch">
-    <span class="ld-a1"></span><span class="ld-a2"></span><span class="ld-a3"></span><span class="ld-a4"></span>
-  </div>
-  <div class="ld-tag">Initializing overlay</div>
-  <div class="ld-cap">CROSSHAIRY</div>
-  <div class="ld-count" id="ld-count">000</div>
-</div>
-
 <nav>
   <div class="nav-inner">
     <a class="logo" href="#" aria-label="CrosshairY home">
@@ -63,301 +51,154 @@
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
-      <a href="#lab">Lab</a>
-      <a href="#proof">Proof&nbsp;Mode</a>
+      <a href="#download">Download</a>
       <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub&nbsp;&#8599;</a>
-      <a class="dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download</a>
+      <a class="dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
+        Download
+      </a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
-  <div id="hero-3d" aria-hidden="true"></div>
+  <img class="hero-mark" src="assets/img/logo.png" alt="" width="56" height="56">
+  <h1>Always on top.<br>Zero bloat.</h1>
+  <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, follow-cursor, game profiles and proof mode. No injection, no drivers - just a window.</p>
+  <a class="btn btn-solid hero-cta" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
+    Download CrosshairY
+  </a>
+  <p class="hero-badge"><span class="badge">FREE</span> for Windows 10/11 (64-bit)</p>
 
-  <div class="hud tl" aria-hidden="true"></div>
-  <div class="hud tr" aria-hidden="true"></div>
-  <div class="hud bl" aria-hidden="true"></div>
-  <div class="hud br" aria-hidden="true"></div>
-  <div class="hud-label tl">CY / OVERLAY&nbsp;&nbsp;v1.0.7</div>
-  <div class="hud-label tr">MIT&nbsp;LICENSE</div>
-  <div class="hud-label bl">WIN&nbsp;10/11&nbsp;&nbsp;/&nbsp;&nbsp;.NET&nbsp;8</div>
-  <div class="hud-label br" id="coords">X:0000&nbsp;&nbsp;Y:0000</div>
-
-  <div class="hero-content">
-    <div class="hero-tag"><span>Free</span><span>Open&nbsp;Source</span><span>Windows</span></div>
-    <h1>ALWAYS ON TOP.<span class="ghost">ZERO BLOAT.</span></h1>
-    <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. <b>No injection. No drivers. Just a window.</b></p>
-    <div class="cta-row">
-      <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;-&nbsp;Free&nbsp;&#8595;</a>
-      <a class="btn btn-ghost" href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">View&nbsp;Source&nbsp;&#8599;</a>
-    </div>
-  </div>
-
-  <div class="hero-stats">
-    <span><b>22</b>Templates</span>
-    <span><b>8</b>Swatches&nbsp;+&nbsp;Hex</span>
-    <span><b>0</b>Taskbar&nbsp;Icons</span>
-    <span><b>100%</b>Free</span>
-  </div>
+  <figure class="shot hero-shot reveal">
+    <img src="s1.png" alt="The CrosshairY app showing the Crosshairs page with a grid of crosshair templates" width="760" height="600" loading="eager">
+  </figure>
 </header>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track"><span>NO INSTALLER</span><span class="x">+</span><span>FOLLOW CURSOR</span><span class="x">+</span><span>AUTO-UPDATE</span><span class="x">+</span><span>GAME PROFILES</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span><span>NO INSTALLER</span><span class="x">+</span><span>FOLLOW CURSOR</span><span class="x">+</span><span>AUTO-UPDATE</span><span class="x">+</span><span>GAME PROFILES</span><span class="x">+</span><span>22 TEMPLATES</span><span class="x">+</span><span>PROOF MODE</span><span class="x">+</span><span>SINGLE .EXE</span><span class="x">+</span><span>CLICK-THROUGH</span><span class="x">+</span><span>MIT LICENSED</span><span class="x">+</span></div>
-</div>
-
-<section id="about">
-  <div class="wrap about-grid">
-    <div class="reveal">
-      <h2>A CROSSHAIR THAT BEHAVES LIKE IT'S <em>PART OF THE OS.</em></h2>
-    </div>
-    <div class="about-copy reveal">
-      <p>Most overlay tools want an installer, an account, and a corner of your taskbar. CrosshairY wants none of it. It's a <b>single transparent window</b> that sits above everything, ignores your clicks, and disappears from view the moment you ask it to.</p>
+<section id="about" class="band">
+  <div class="wrap two-col">
+    <div class="col reveal">
+      <h2>A crosshair that behaves like part of the OS.</h2>
+      <p>Most overlay tools want an installer, an account, and a corner of your taskbar. CrosshairY wants none of it. It's a single transparent window that sits above everything, ignores your clicks, and disappears from view the moment you ask it to.</p>
       <p>Built with C# WPF on .NET&nbsp;8 and released under MIT - the entire source is public. Read it, fork it, build it yourself with one <code>build.bat</code>.</p>
-      <p>It's free, it stays free, and it ships with one promise: <b>a perfect user experience.</b> No ads, no upsells, no "pro version" hiding behind a paywall.</p>
-      <ul class="about-list">
-        <li><span>Engine</span><span>C# / WPF / .NET 8</span></li>
-        <li><span>Install</span><span>None - single .exe</span></li>
-        <li><span>Game hooks</span><span>Zero. It never touches a process</span></li>
-        <li><span>License</span><span>MIT - do whatever you want</span></li>
-      </ul>
+      <p>It's free, it stays free, and it ships with one promise: a perfect user experience. No ads, no upsells, no "pro version" hiding behind a paywall.</p>
+    </div>
+    <div class="col reveal">
+      <h3>Respectful by design</h3>
+      <p>No game hooks, no drivers, no injection. CrosshairY never reads, writes or touches another process - it just paints pixels on your own screen, the way a sticky note on your monitor would.</p>
+      <p>No taskbar icon, borderless, fully click-through. It runs silently and never gets in the way of your aim or your alt-tab.</p>
+      <h3>Light and instant</h3>
+      <p>A single self-contained .exe with nothing to install. Your last config auto-loads on launch, so you open it and you're already dialed in.</p>
     </div>
   </div>
 </section>
 
-<div class="div-x"></div>
+<figure class="shot wide-shot reveal">
+  <img src="s3.png" alt="The CrosshairY Support page with socials and donation links" width="760" height="600" loading="lazy">
+</figure>
 
-<section id="features">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">// Features</div>
-      <h2 class="sec-title">ONE WINDOW.<br>TWENTY-TWO PERSONALITIES.</h2>
+<section id="features" class="band">
+  <div class="wrap two-col feat-col">
+    <div class="col reveal">
+      <h3>Twenty-two templates, one window</h3>
+      <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, Corners, Dot&nbsp;Ring and more. Pick a style, dial in 8 swatches plus free hex color, size from 50% to 200%, opacity, outline thickness and a center-gap slider.</p>
+
+      <h3>Build your own crosshair</h3>
+      <p>Draw a custom design on a 15, 30 or 60 grid with pencil, eraser, fill, line, rectangle and ellipse. Mirror left/right, up/down or 4-way for clean symmetry, with full undo and redo, then save it to your collection.</p>
+
+      <h3>Designed to get out of your way</h3>
+      <p>Follow-cursor mode replaces the Windows pointer so the crosshair tracks with zero lag, then restores the instant it's off. Nudge it off-center with exact X/Y offset, and pick which monitor it lives on.</p>
     </div>
-    <p class="feat-hint reveal">Tap a feature to read more.</p>
-    <div class="feat-grid reveal">
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="2" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="22" y2="12"/></svg></span><h3>22 Templates</h3></summary>
-        <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, Corners, Dot&nbsp;Ring and more. Try every one of them in the Lab below.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></span><h3>Live Color</h3></summary>
-        <p>8 swatches with instant preview, plus a free hex input for any color your monitor can produce.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></span><h3>Outline &amp; Gap</h3></summary>
-        <p>Outline toggle with 1-5 thickness and a center-gap slider from 0 to 20 so your aim point stays clean.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><polyline points="4,16 4,20 20,20 20,16"/><line x1="12" y1="4" x2="12" y2="15"/><polyline points="8,11 12,15 16,11"/></svg></span><h3>Size &amp; Opacity</h3></summary>
-        <p>Scale from 50% to 200%, fade from 10% to 100%. Big and bold or barely there - your call.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></span><h3>Proof Mode</h3></summary>
-        <p>One keypress hides the overlay from OBS, Discord screenshare and clips. Your screen keeps it; the capture doesn't.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><rect x="9" y="13" width="6" height="7"/><rect x="9" y="4" width="6" height="4"/></svg></span><h3>Profiles</h3></summary>
-        <p>Save, load, duplicate and overwrite configs as plain .json, each with a live crosshair thumbnail.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 14l4-8 4 6 3-4 5 6"/><line x1="4" y1="19" x2="20" y2="19"/></svg></span><h3>Auto-Load</h3></summary>
-        <p>Your last config applies itself on launch. Open the .exe and you're already dialed in.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/><line x1="7" y1="12" x2="7" y2="12.01"/><line x1="11" y1="12" x2="11" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/></svg></span><h3>Hotkeys</h3></summary>
-        <p>Global keys to toggle the overlay, switch follow-cursor mode and cycle profiles, all without opening the UI.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M3 12c2.5-4.5 6-7 9-7s6.5 2.5 9 7c-2.5 4.5-6 7-9 7s-6.5-2.5-9-7z"/><line x1="4" y1="4" x2="20" y2="20"/></svg></span><h3>Invisible Footprint</h3></summary>
-        <p>No taskbar icon, borderless, fully click-through. It runs silently and never gets in the way.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><line x1="14" y1="6" x2="18" y2="10"/></svg></span><h3>Custom Builder</h3></summary>
-        <p>Draw your own on a 15, 30 or 60 grid with pencil, eraser, fill, line, rectangle and ellipse, then save it to your My Crosshairs collection.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><polyline points="7,9 4,12 7,15"/><polyline points="17,9 20,12 17,15"/></svg></span><h3>Mirror &amp; History</h3></summary>
-        <p>Left/right, up/down or 4-way mirror symmetry for clean designs, with full undo and redo on Ctrl+Z and Ctrl+Y.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="9"/><rect x="11" y="11" width="11" height="8"/></svg></span><h3>Multi-Monitor</h3></summary>
-        <p>Pick which display the crosshair lives on from Settings. Crisp vector rendering keeps custom builds sharp at any size.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><polyline points="9,5 12,2 15,5"/><polyline points="9,19 12,22 15,19"/><polyline points="5,9 2,12 5,15"/><polyline points="19,9 22,12 19,15"/></svg></span><h3>Position Offset</h3></summary>
-        <p>Nudge the crosshair off-center on X and Y with -/+ buttons or an exact value, clamped to the screen bounds.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M5 3l5 16 2.2-6.8L19 10z"/></svg></span><h3>Follow Cursor</h3></summary>
-        <p>Replace the Windows cursor with your crosshair so it tracks the pointer with zero lag, then restores the moment it is off.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 3 21 8 16 8"/><line x1="12" y1="8" x2="12" y2="14"/><polyline points="9 11 12 14 15 11"/></svg></span><h3>Auto-Update</h3></summary>
-        <p>Checks for new releases on launch. One click downloads, installs silently and relaunches, or check manually any time.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5"/><line x1="6" y1="12" x2="8" y2="12"/><line x1="7" y1="11" x2="7" y2="13"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg></span><h3>Auto Game-Profiles</h3></summary>
-        <p>Map a profile to a game and CrosshairY loads it the moment that game takes focus. Built-in list of popular titles, add any other by name, with optional auto-revert when you alt-tab out.</p>
-      </details>
-      <details class="feat-cell">
-        <summary><span class="glyph"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="12"/><path d="M7.5 6.5a8 8 0 1 0 9 0"/></svg></span><h3>Start with Windows</h3></summary>
-        <p>Opt in to launch CrosshairY automatically when you sign in. A per-user setting, no admin rights needed, toggled from Settings.</p>
-      </details>
+    <div class="col reveal">
+      <h3>Free and fully open-source</h3>
+      <p>Every part of CrosshairY is public under the MIT license. Read it, audit it, fork it or build it yourself with one <code>build.bat</code>. No exceptions.</p>
+
+      <h3>Proof mode for clean clips</h3>
+      <p>One keypress flags the overlay with <code>WDA_EXCLUDEFROMCAPTURE</code>, so OBS, Discord screenshare and clips simply can't see it. Your screen keeps the crosshair; the recording doesn't.</p>
+
+      <h3>Profiles that follow your games</h3>
+      <p>Save configs as plain .json, then map a profile to a game and CrosshairY loads it the moment that game takes focus - with optional auto-revert when you alt-tab out. Auto-update keeps you on the latest release, and it can start with Windows.</p>
     </div>
   </div>
 </section>
 
-<div class="div-x"></div>
-
-<section id="lab">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">// The Lab</div>
-      <h2 class="sec-title">BUILD YOUR CROSSHAIR.<br>RIGHT HERE.</h2>
-      <p>A working replica of the app's customizer - same templates, same controls, same look. What you build here is what you get in-game.</p>
-    </div>
-    <div class="lab-grid reveal">
-      <div class="lab-preview">
-        <span class="lab-hudline a">PREVIEW</span>
-        <span class="lab-hudline b">RANGE&nbsp;/&nbsp;01</span>
-        <span class="lab-hudline c">CLICK-THROUGH:&nbsp;ON</span>
-        <span class="lab-hudline d" id="lab-readout"></span>
-        <canvas id="lab-canvas" width="680" height="680" aria-label="Crosshair preview"></canvas>
-      </div>
-      <div class="lab-controls">
-        <div>
-          <div class="ctl-label"><span>Template</span><output id="tpl-out">THICK CROSS</output></div>
-          <div class="tpl-grid" id="tpl-grid" role="listbox" aria-label="Crosshair templates"></div>
-        </div>
-        <div>
-          <div class="ctl-label"><span>Color</span><output id="col-out">#F5F5F5</output></div>
-          <div class="swatches" id="swatches">
-            <input class="hex-input" id="hex-input" maxlength="7" value="#F5F5F5" aria-label="Hex color" spellcheck="false">
-          </div>
-        </div>
-        <div>
-          <div class="ctl-label"><span>Size</span><output id="size-out">100%</output></div>
-          <input type="range" id="r-size" min="50" max="200" value="100" aria-label="Size">
-        </div>
-        <div>
-          <div class="ctl-label"><span>Center Gap</span><output id="gap-out">6</output></div>
-          <input type="range" id="r-gap" min="0" max="20" value="6" aria-label="Center gap">
-        </div>
-        <div>
-          <div class="ctl-label"><span>Outline</span><output id="out-out">1</output></div>
-          <input type="range" id="r-outline" min="0" max="5" value="1" aria-label="Outline thickness">
-        </div>
-        <div>
-          <div class="ctl-label"><span>Opacity</span><output id="op-out">100%</output></div>
-          <input type="range" id="r-opacity" min="10" max="100" value="100" aria-label="Opacity">
-        </div>
-        <div class="lab-actions">
-          <button class="lab-btn" id="btn-random">&#10227;&nbsp;Randomize</button>
-          <button class="lab-btn" id="btn-reset">Reset</button>
-        </div>
-        <p class="lab-note">Same controls ship in the app, where profiles save as plain .json under <code>%APPDATA%\CrosshairY</code>. <a href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Get the real thing &#8599;</a></p>
-      </div>
+<section id="tray" class="band">
+  <div class="wrap two-col tray-col">
+    <figure class="shot tray-shot reveal">
+      <img src="s2.png" alt="The CrosshairY system tray menu with overlay, follow cursor, proof mode and profiles" width="158" height="155" loading="lazy">
+    </figure>
+    <div class="col reveal">
+      <h2>Everything from the tray.</h2>
+      <p>CrosshairY lives quietly in your system tray. Right-click to toggle the overlay, flip follow-cursor or proof mode, jump between profiles, or open the full window - all without leaving your game.</p>
+      <p>There's no taskbar icon and nothing in your way. It's there when you want it and invisible when you don't.</p>
     </div>
   </div>
 </section>
 
-<div class="div-x"></div>
-
-<section id="proof">
-  <div class="wrap">
-    <div class="sec-head reveal" style="text-align:center;">
-      <div class="eyebrow" style="justify-content:center;">// Proof Mode</div>
-      <h2 class="sec-title">ON YOUR SCREEN.<br>OFF THE RECORDING.</h2>
-    </div>
-    <div class="proof-grid reveal">
-      <div class="proof-pane">
-        <span class="pane-tag">Your screen</span>
-        <canvas class="proof-ch" width="320" height="320"></canvas>
-      </div>
-      <div class="proof-pane capture" id="capture-pane">
-        <span class="pane-tag"><span class="rec-dot"></span>OBS&nbsp;/&nbsp;Screenshare</span>
-        <canvas class="proof-ch" width="320" height="320"></canvas>
-        <span class="hidden-tag">Overlay hidden from capture</span>
-      </div>
-    </div>
-    <div class="proof-toggle-row reveal">
-      <span>Proof mode</span>
-      <label class="switch">
-        <input type="checkbox" id="proof-toggle" aria-label="Toggle proof mode demo">
-        <span class="track"></span>
-        <span class="thumb"></span>
-      </label>
-      <span class="state" id="proof-state">OFF</span>
-    </div>
-    <p class="proof-copy reveal">A single keypress flags the overlay window with <code>WDA_EXCLUDEFROMCAPTURE</code>, so capture software simply can't see it. Press again to bring it back. The hotkey is yours to configure.</p>
-  </div>
-</section>
-
-<div class="div-x"></div>
-
-<section id="download">
-  <div class="wrap">
+<section id="love" class="band center">
+  <div class="wrap narrow">
     <div class="reveal">
-      <div class="big">ONE FILE.<br><em>NO STRINGS.</em></div>
-      <p class="dl-sub">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
-      <div class="cta-row">
-        <a class="btn btn-solid" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;v1.0.7&nbsp;&#8595;</a>
-        <a class="btn btn-ghost" href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join&nbsp;the&nbsp;Discord</a>
-      </div>
-      <div class="dl-meta">
-        <span>Windows&nbsp;10/11&nbsp;(x64)</span>
-        <span>.NET&nbsp;8&nbsp;Desktop&nbsp;Runtime</span>
-        <span>MIT&nbsp;Licensed</span>
-      </div>
+      <svg class="love-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9C1.2 9.1 2.6 6 5.8 6 8 6 9.4 7.6 12 10.2 14.6 7.6 16 6 18.2 6c3.2 0 4.6 3.1 3.1 6C19 16.4 12 21 12 21z"/></svg>
+      <h2>Made for players, with love.</h2>
+      <p class="lead">We built the crosshair overlay we wanted to use ourselves - honest, comfortable and non-invasive. No accounts, no nags, no nonsense.</p>
     </div>
-    <div class="steps reveal">
-      <div class="step">
-        <div class="num">1</div>
-        <h4>Grab the .exe</h4>
-        <p>Download <code>CrosshairY.exe</code> from the latest GitHub release. It's a single self-contained file.</p>
-      </div>
-      <div class="step">
-        <div class="num">2</div>
-        <h4>Run it</h4>
-        <p>No install wizard. If Windows asks, you may need the free <code>.NET 8 Desktop Runtime</code> from Microsoft.</p>
-      </div>
-      <div class="step">
-        <div class="num">3</div>
-        <h4>Lock in</h4>
-        <p>Pick a template, dial your color and gap, save it as a profile. It auto-loads next launch.</p>
-      </div>
+    <div class="reveal">
+      <h3>Perfect for competitive play</h3>
+      <p>A pixel-perfect, always-centered aim point on games that hide their own, with proof mode so your clips stay clean. Nothing flickers, nothing lags, nothing gets in your way.</p>
+      <h3>Perfect for everyone</h3>
+      <p>One small .exe, zero setup. Whether you're grinding ranked or just want a steady dot on screen, CrosshairY loads fast and stays out of the way.</p>
     </div>
-    <div class="answers reveal">
-      <details>
-        <summary>Is this a cheat?</summary>
-        <p>No. CrosshairY draws on your screen the way a sticky note on your monitor would - it never reads, writes or injects into any game process. No drivers, no hooks into games, just a transparent window.</p>
-      </details>
-      <details>
-        <summary>Why is it free?</summary>
-        <p>Because it's open source under MIT. The full code is on GitHub for anyone to audit, fork or build themselves with one <code>build.bat</code>.</p>
-      </details>
-      <details>
-        <summary>Where do my profiles live?</summary>
-        <p>As plain .json files in <code>%APPDATA%\CrosshairY\Configs</code>. Share a file with a friend, they drop it in their folder, hit reload, and they're running your exact setup.</p>
-      </details>
+  </div>
+</section>
+
+<section id="download" class="band center">
+  <div class="wrap narrow">
+    <svg class="dl-mark reveal" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
+    <div class="reveal">
+      <h2>Ready to lock in?</h2>
+      <p class="lead">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
+      <a class="btn btn-solid hero-cta" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
+        Download v1.0.7
+      </a>
+      <p class="hero-badge"><span class="badge">FREE</span> for Windows 10/11 (64-bit)</p>
+      <p class="dl-links">
+        <a href="https://github.com/dcbzpass/CrosshairY/releases" target="_blank" rel="noopener">All releases&nbsp;&#8599;</a>
+        <a href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Join the Discord&nbsp;&#8599;</a>
+      </p>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-mark" aria-hidden="true">CROSSHAIRY</div>
-  <div class="wrap foot-row">
-    <span>&copy; 2026 CrosshairY - MIT License</span>
-    <div class="links">
-      <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub&nbsp;&#8599;</a>
-      <a href="https://github.com/dcbzpass/CrosshairY/releases" target="_blank" rel="noopener">Releases&nbsp;&#8599;</a>
-      <a href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Discord&nbsp;&#8599;</a>
-      <a href="https://www.tiktok.com/@crosshair_y" target="_blank" rel="noopener">TikTok&nbsp;&#8599;</a>
+  <div class="wrap foot-grid">
+    <a class="foot-brand" href="#">
+      <img src="assets/img/logo.png" alt="" width="22" height="22">
+      CROSSHAIRY
+    </a>
+    <div class="foot-col">
+      <h4>Project</h4>
+      <a href="https://github.com/dcbzpass/CrosshairY" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/dcbzpass/CrosshairY/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/dcbzpass/CrosshairY/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
     </div>
+    <div class="foot-col">
+      <h4>Community</h4>
+      <a href="https://discord.gg/tvJpwkyBmN" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.tiktok.com/@crosshair_y" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <div class="foot-col">
+      <h4>Download</h4>
+      <a href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Latest release</a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>&copy; 2026 CrosshairY - MIT License</span>
     <span>crosshairy.site</span>
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
