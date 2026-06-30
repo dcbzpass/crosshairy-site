@@ -160,7 +160,13 @@ nav{
 .center .narrow > .reveal:last-child h3:first-child{margin-top:48px;}
 .center .narrow p{color:var(--fg-mid);max-width:560px;margin:0 auto;font-size:15px;}
 #download h2{margin-bottom:0;}
-.dl-links{margin-top:26px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;font-size:12px;letter-spacing:.06em;}
+#download .hero-cta{margin-top:46px;}
+#download .hero-badge{margin-top:24px;}
+.dl-links{
+  margin-top:52px;padding-top:32px;border-top:1px solid var(--border);
+  max-width:360px;margin-left:auto;margin-right:auto;
+  display:flex;gap:40px;justify-content:center;flex-wrap:wrap;font-size:12px;letter-spacing:.06em;
+}
 .dl-links a{color:var(--muted);border-bottom:1px solid var(--muted2);padding-bottom:2px;transition:color .18s,border-color .18s;}
 .dl-links a:hover{color:var(--white);border-color:var(--white);}
 
