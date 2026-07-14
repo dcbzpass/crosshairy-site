@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrosshairY</title>
-<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, follow-cursor mode, position offset, global hotkeys, auto-update, profiles with per-game auto-switching, and proof mode. Free, open source, zero bloat.">
+<meta name="description" content="CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, image imports, follow-cursor mode, position offset, global hotkeys, auto-update, profiles with per-game auto-switching, and proof mode. Free, open source, zero bloat.">
 <meta name="theme-color" content="#080808">
 <link rel="canonical" href="https://crosshairy.site/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crosshairy.site/">
 <meta property="og:title" content="CrosshairY - Always on top. Zero bloat.">
-<meta property="og:description" content="Free crosshair overlay for Windows. 22 templates, a custom builder with mirror and undo, follow-cursor mode, position offset, global hotkeys, auto-update, profiles that auto-switch per game, and a proof mode that hides the overlay from screen capture.">
+<meta property="og:description" content="Free crosshair overlay for Windows. 22 templates, image imports, a custom builder with mirror and undo, follow-cursor mode, position offset, global hotkeys, auto-update, profiles that auto-switch per game, and a proof mode that hides the overlay from screen capture.">
 <meta property="og:image" content="https://opengraph.githubassets.com/589f6e2f9ece1e89bac2be857c42b24a626247c97ae76792eeb3a9f8a90680cb/dcbzpass/CrosshairY">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -29,7 +29,7 @@
   "license": "https://github.com/dcbzpass/CrosshairY/blob/main/LICENSE",
   "url": "https://crosshairy.site/",
   "downloadUrl": "https://github.com/dcbzpass/CrosshairY/releases/latest",
-  "softwareVersion": "1.0.7"
+  "softwareVersion": "1.0.8"
 }
 </script>
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -38,7 +38,7 @@
 
 <div class="announce" id="announce" role="region" aria-label="Release announcement">
   <span class="ann-dot" aria-hidden="true"></span>
-  <span class="ann-text">CrosshairY <b>v1.0.7</b> is out - auto game-profiles, start with Windows and a richer system tray.</span>
+  <span class="ann-text">CrosshairY <b>v1.0.8</b> is out - custom image crosshairs, hotkeys, drag positioning & more.</span>
   <a class="ann-dl" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">Download&nbsp;&#8595;</a>
   <button class="ann-x" id="ann-x" type="button" aria-label="Dismiss announcement">&#10005;</button>
 </div>
@@ -64,7 +64,7 @@
 <header class="hero">
   <img class="hero-mark" src="assets/img/logo.png" alt="" width="56" height="56">
   <h1>Always on top.<br>Zero bloat.</h1>
-  <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, follow-cursor, game profiles and proof mode. No injection, no drivers - just a window.</p>
+  <p class="hero-sub">CrosshairY draws a persistent, click-through crosshair over any game or app. 22 templates, a custom builder, image imports, follow-cursor, game profiles and proof mode. No injection, no drivers - just a window.</p>
   <a class="btn btn-solid hero-cta" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
     Download CrosshairY
@@ -101,14 +101,14 @@
 <section id="features" class="band">
   <div class="wrap two-col feat-col">
     <div class="col reveal">
-      <h3>Twenty-two templates, one window</h3>
-      <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, Corners, Dot&nbsp;Ring and more. Pick a style, dial in 8 swatches plus free hex color, size from 50% to 200%, opacity, outline thickness and a center-gap slider.</p>
+      <h3>Templates, images, hotkeys - one window</h3>
+      <p>Dot, Ring, Sniper, X&nbsp;Cross, Chevrons, Corners, Dot&nbsp;Ring, or import your own PNG/JPG/BMP/GIF as a crosshair. Bind any template, drawn, or image crosshair to a hotkey for instant switching. Size from 50% to 200%, opacity, outline, center-gap and drag positioning on every type.</p>
 
       <h3>Build your own crosshair</h3>
-      <p>Draw a custom design on a 15, 30 or 60 grid with pencil, eraser, fill, line, rectangle and ellipse. Mirror left/right, up/down or 4-way for clean symmetry, with full undo and redo, then save it to your collection.</p>
+      <p>Draw a custom design on a 15, 30 or 60 grid with pencil, eraser, fill, line, rectangle and ellipse. Mirror left/right, up/down or 4-way for clean symmetry, with full undo and redo. Save it to your collection and drag it anywhere on screen.</p>
 
       <h3>Designed to get out of your way</h3>
-      <p>Follow-cursor mode replaces the Windows pointer so the crosshair tracks with zero lag, then restores the instant it's off. Nudge it off-center with exact X/Y offset, and pick which monitor it lives on.</p>
+      <p>Follow-cursor mode replaces the Windows pointer so the crosshair tracks with zero lag, then restores the instant it's off. Nudge it off-center with exact X/Y offset, pick which monitor it lives on, and the overlay stays topmost even in aggressive fullscreen games.</p>
     </div>
     <div class="col reveal">
       <h3>Free and fully open-source</h3>
@@ -160,7 +160,7 @@
       <p class="lead">Grab the .exe, run it, aim. No installer, no account, no nags - and if you ever delete the file, it's gone like it was never there.</p>
       <a class="btn btn-solid hero-cta" href="https://github.com/dcbzpass/CrosshairY/releases/latest" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="8 11 12 15 16 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>
-        Download v1.0.7
+        Download v1.0.8
       </a>
       <p class="hero-badge"><span class="badge">FREE</span> for Windows 10/11 (64-bit)</p>
       <p class="dl-links">
